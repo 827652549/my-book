@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ch">
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
@@ -12,15 +12,28 @@
   <div id="app">一大波offers正在快马加鞭赶来……</div>
   <script>
     window.$docsify = {
-      name: '',
-      repo: '',
+      repo: 'https://github.com/827652549/my-book',
+      name: '《前端高频面试精粹》',
+      nameLink: '/',
       coverpage: true,
       loadNavbar: true,
       loadSidebar: true,
-      subMaxLevel: 2,
-      logo: '/fightJob.png'
+      autoHeader: true,
+      auto2top: true,
+      subMaxLevel: 3,
+      mergeNavbar: true,
+      formatUpdated: '{YYYY}/{MM}/{DD} {HH}:{mm}',
+      notFoundPage: '404.md',
+      search: {
+        paths: 'auto',
+        placeholder: '🔍 Type to search ',
+        noData: '😞 No Results! ',
+        depth: 6
+      },
     }
   </script>
   <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+  <script src="//unpkg.com/docsify/lib/plugins/search.js"></script>
+
 </body>
 </html>
