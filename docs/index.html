@@ -1,63 +1,63 @@
 <!DOCTYPE html>
 <html lang="ch">
 <head>
-  <meta charset="UTF-8">
-  <title>Document</title>
-  <meta name="google-site-verification" content="A1khUyR3mZ2SNKsRy7LbH_n_Sqo8u_kPB2PE1TuKrj4" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="description" content="Description">
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
-  <link rel="stylesheet" href="//unpkg.com/gitalk/dist/gitalk.css">
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <meta name="google-site-verification" content="A1khUyR3mZ2SNKsRy7LbH_n_Sqo8u_kPB2PE1TuKrj4"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="description" content="Description">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
+    <link rel="stylesheet" href="//unpkg.com/gitalk/dist/gitalk.css">
 
 </head>
 <body>
-  <div id="app">一大波offers正在快马加鞭赶来……</div>
+<div id="app">一大波offers正在快马加鞭赶来……</div>
 
 
-
-
-  <script>
+<script>
     window.$docsify = {
-      repo: 'https://github.com/827652549/my-book',
-      name: '《前端高频面试精粹》',
-      nameLink: '/',
-      coverpage: true,
-      loadNavbar: true,
-      loadSidebar: true,
-      autoHeader: true,
-      auto2top: true,
-      subMaxLevel: 3,
-      ga: 'UA-161434150-1',
-      mergeNavbar: true,
-      formatUpdated: '{YYYY}/{MM}/{DD} {HH}:{mm}',
-      notFoundPage: '404.md',
-      search: {
-        paths: 'auto',
-        placeholder: '🔍 Type to search ',
-        noData: '😞 No Results! ',
-        depth: 6
-      },
+        repo: 'https://github.com/827652549/my-book',
+        name: '《前端高频面试精粹》',
+        nameLink: '/',
+        coverpage: true,
+        loadNavbar: true,
+        loadSidebar: true,
+        autoHeader: true,
+        auto2top: true,
+        subMaxLevel: 3,
+        ga: 'UA-161434150-1',
+        mergeNavbar: true,
+        formatUpdated: '{YYYY}/{MM}/{DD} {HH}:{mm}',
+        notFoundPage: '404.md',
+        search: {
+            paths: 'auto',
+            placeholder: '🔍 Type to search ',
+            noData: '😞 No Results! ',
+            depth: 6
+        }
     }
-  </script>
 
-  <script src="https://unpkg.com/docsify@4.11.2/lib/docsify.min.js"></script>
-  <script src="//unpkg.com/docsify/lib/plugins/search.js"></script>
-  <script src="//unpkg.com/docsify/lib/plugins/ga.js"></script>
+</script>
 
-  <script src="//unpkg.com/docsify/lib/plugins/gitalk.min.js"></script>
-  <script src="//unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
 
-  <script>
-    const gitalk = new Gitalk({
-      clientID: '4739c8addaab6806978d',
-      clientSecret: '6f954882476e39043dc000f8c3148def439935e8',
-      repo: 'my-book',
-      owner: '827652549',
-      admin: ['827652549'],
-      // facebook-like distraction free mode
-      distractionFreeMode: false
-    })
-  </script>
+<script src="//unpkg.com/docsify/lib/plugins/gitalk.min.js"></script>
+<script src="//unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script src="//unpkg.com/docsify/lib/plugins/search.js"></script>
+<script src="//unpkg.com/docsify/lib/plugins/ga.js"></script>
+
+<script>
+  const gitalk = new Gitalk({
+    clientID: '4739c8addaab6806978d',
+    clientSecret: '6f954882476e39043dc000f8c3148def439935e8',
+    repo: 'my-book',
+    owner: '827652549',
+    admin: ['827652549'],
+    id: location.pathname,
+    distractionFreeMode: false
+  })
+</script>
 </body>
 </html>
