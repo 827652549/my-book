@@ -43,9 +43,43 @@
 </pre>
 </details>
 
+## React请求放到哪个生命周期中？
+挂载阶段渲染之后的componentDidMount
+## React的合成事件？
+例如`<button onClick={this.handleButtonCLick()}></button>`
+React并非是直接在真实DOM上绑定事件，为了避免DOM事件滥用，在document监听所有事件，当事件冒泡至document处时，React将事件内容交给中间层SyntheticEvent负责事件合成，当事件触发时，对统一分发函数dispatchEvent指定函数运行。
 
-## React如何性能优化
-## shouldComponentMount如何优化性能？
-## React是如何优化性能的？
-## 虚拟DOM是什么？
-## 说一下diff算法
+在React里也可以使用原生事件（addEventListener），但最好不要混用，一旦stopPropagation阻止了冒泡，会导致其他React事件失效。
+## setState是同步的还是异步的？
+- 生命周期函数、合成函数中是**异步**的
+- 原生事件、setTimeout、setInterval是**同步**的。
+
+这里的异步其实是指将多个state合成到一起进行批量更新。
+
+原理：setState会根据一个变量isBatchingUpdates判断是直接更新this.state还是放到队列回头再说，在React调用合成事件之前会调用batchedUpdates()，通过修改变量isBatchingUpdates为ture，使之为异步。
+## 为什么使用Redux？
+（Redux是什么）
+Redux是为了解决组件间通信和组件状态共享。
+
+（Redux带来了什么好处）
+在我的项目中，涉及到很多物理实验，不同实验还有很多复杂的数据，又考虑到页面深度和未来的易扩展性，因为未来还要有很多物理实验要添加进去，决定统一使用Redux进行状态管理。
+
+（我是如何使用Redux的）
+view的组件派发action（用dispatch方法）给Store，借助reducer里根据action的type判断执行哪种操作，最后将新State返回给store进而转给component
+## Redux如何实现异步操作？
+?> Action 发出以后，Reducer 立即算出 State，这叫做同步；Action 发出以后，过一段时间再执行 Reducer，这就是异步。
+
+我使用的是redux-thunk，通过Redux里applyMiddlewares()来添加中间件redux-thunk，通过改造store.dispatch()可以让它接收一个函数参数（正常情况下参数只能是对象），这个函数是一个可以返回函数的Action Creator，在这里面进行异步操作。
+## 你还知道其他的Redux异步处理方式吗？
+- **redux-promise**改造dispatch方法接收Promise对象作为参数
+- **redux-saga**通过把异步处理剥离出来单独执行，利用generator实现异步处理
+## Redux和Mobx区别
+- Redux数据保存在单一store中，Mobx数据保存在多个store中
+- redux使用是不可变状态，使用的是纯函数，而mobx的状态是可变的
+- redux提供时间回溯的工具，调试更加容易，mobx更多的是抽象和封装，调试比较困难
+
+（使用场景）
+
+Mobx更适合数据不复杂的应用，面对复杂度高的应用，难以调试，状态无法回溯，会力不从心。
+
+Redux适合有回溯需求的项目，比如画板，有时候需要撤销功能，就算是更复杂的项目，统一store管理数据，还有方便的调试工具，至少开发者不会感到无从下手。
