@@ -22,7 +22,7 @@ jsonp原理：静态文件不受同源政策影响，我可以返回一个script
 
 
 ## 基本类型
-`String`、`Boolean`、`Number`、`Null`、`Undefined`、`Symbol`。
+`String`、`Boolean`、`Number`、`Null`、`Undefined`、`Symbol`,还有一个还没有被正式纳入标准的`BigInt`。
 
 `Symbol`可以用来创建唯一常量。
 ## this的指向问题

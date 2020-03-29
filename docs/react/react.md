@@ -1,25 +1,25 @@
 在前端面试中，很多大公司都是React技术栈，一份扎实的React基础必不可少，这里汇总常见的React问题和回答，以及作者亲身经历的React问题。
 
-?> 避坑指南：本文已经尽力避免了“多说一些细节点”，只是在“听起来这个人基础还不错”的状态下完成回答，尽力避免给自己挖坑，以至于让面试官深挖，最后万劫不复。当然，如果你对自己有信心，可以尝试多说一些，只要能保证你补充的地方还能深挖，并且能答上来，那妥妥的加分项。但是如果从概率上考虑，可能数学期望为负数，你可要好好斟酌斟酌。
+?> **避坑指南**：本文已经尽力避免了“多说一些细节点”，只是在“听起来这个人基础还不错”的状态下完成回答，尽力避免给自己挖坑，以至于让面试官深挖，最后万劫不复。当然，如果你对自己有信心，可以尝试多说一些，只要能保证你补充的地方还能深挖，并且能答上来，那妥妥的加分项。但是如果从概率上考虑，可能数学期望为负数，你可要好好斟酌斟酌。
 
 ## 说一下React的声明周期
 
 目前React的生命周期分为3个阶段: 挂载阶段（Mount）、更新阶段（Update）、卸载阶段（Unmount）
 
-### 挂载阶段（Mount）：
+#### 挂载阶段（Mount）：
 - **constructor**:构造函数，最先被执行，通常在state里初始化state对象或者给自定义方法绑定this。
 - **getDerivedStateFromProps(nextProps,prevState)**：将传入的props映射到state上面
 - **render**：render渲染
 - **componentDidMount**：这里可以发送服务器请求、获取DOM节点、对canvas进行操作。
 
-### 更新阶段（Update）：
+#### 更新阶段（Update）：
 - **getDerivedStateFromProps**：新的props会传过来
 - **shouldComponentUpdate(nextProps,nextState)**：返回一个布尔值，true表示触发重新渲染，false表示不会触发重新渲染，默认返回true
 - **render**：更新阶段也会触发生命周期
 - **getSnapshotBeforeUpdate(prevProps,prevState)**：返回值会传入componentDidUpdate作为第三个参数，必须和componentDidUpdate一起使用
 - **componentDidUpdate(prevProps,prevState,snapshot)**：如果触发某些回调函数时需要用到DOM的状态（如滚动位置），则将对比和计算的过程写在getSnapshotBeforeUpdate，然后在componentDidUpdate里统一触发回调或更新状态
 
-### 卸载阶段（Unmount）：
+#### 卸载阶段（Unmount）：
 
 - **componentWillUnmount**：当组件卸载和销毁时调用，可以在这个函数里去清除一些定时器，取消网络请求，清除无效DOM等垃圾清理工作
 
@@ -71,8 +71,10 @@ view的组件派发action（用dispatch方法）给Store，借助reducer里根�
 
 我使用的是redux-thunk，通过Redux里applyMiddlewares()来添加中间件redux-thunk，通过改造store.dispatch()可以让它接收一个函数参数（正常情况下参数只能是对象），这个函数是一个可以返回函数的Action Creator，在这里面进行异步操作。
 ## 你还知道其他的Redux异步处理方式吗？
+
 - **redux-promise**改造dispatch方法接收Promise对象作为参数
 - **redux-saga**通过把异步处理剥离出来单独执行，利用generator实现异步处理
+
 ## Redux和Mobx区别
 - Redux数据保存在单一store中，Mobx数据保存在多个store中
 - redux使用是不可变状态，使用的是纯函数，而mobx的状态是可变的
@@ -83,3 +85,20 @@ view的组件派发action（用dispatch方法）给Store，借助reducer里根�
 Mobx更适合数据不复杂的应用，面对复杂度高的应用，难以调试，状态无法回溯，会力不从心。
 
 Redux适合有回溯需求的项目，比如画板，有时候需要撤销功能，就算是更复杂的项目，统一store管理数据，还有方便的调试工具，至少开发者不会感到无从下手。
+
+## React如何实现组件间通讯
+- 父组件向子组件通讯：直接通过props属性
+- 子组件向父组件通讯：通过props传入一个函数，子组件通过函数参数传递信息到父组件作用域中
+- 兄弟组件通讯：先通过父组件，在到子组件
+- 跨层级通信：可以使用Context，但是会是组件的**复用性**变差
+- 借助全局状态管理工具：Redux、Mobx
+
+## React如何性能优化？
+针对于React的优化可考虑通过shouldComponentUpdate控制不必要的渲染
+其他的可参考浏览器的优化
+
+## 为什么虚拟DOM能够提高性能？
+因为DOM操作是很消耗性能的，而虚拟DOM相当于在js和真实DOM中间加了一个缓存，通过diff算法避免没必要的DOM操作，从而提高性能。
+
+## 说一下diff算法？
+将树形结构按照层级分解，只比较同级元素，并给每一个单元添加key属性，方便比较。调用setState的时候，给需要重新渲染的位置标记脏值dirty，最后会检查所有标记dirty的component重新绘制

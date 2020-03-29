@@ -2,8 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="28cce4ce-56cf-4258-97c7-becdf93a79a4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/docs/projects/project.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/coding-secret/java-api.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/index.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/network/详谈输入URL之后.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/speed/speed.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/_sidebar.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_sidebar.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/javascript/questions.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javascript/questions.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/network/http.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/network/http.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/react/react.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/react/react.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,6 +24,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -38,21 +48,24 @@
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Junking的火锅店" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/docs" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/docs/javascript" />
-      <recent name="$PROJECT_DIR$/docs/_media" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/docs/coding-secret" />
       <recent name="$PROJECT_DIR$/docs" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/docs/foreword" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/docs" />
+      <recent name="$PROJECT_DIR$/docs/javascript" />
+      <recent name="$PROJECT_DIR$/docs/_media" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -84,7 +97,8 @@
       <workItem from="1584814551975" duration="717000" />
       <workItem from="1584839387883" duration="21278000" />
       <workItem from="1585101082591" duration="4814000" />
-      <workItem from="1585222879651" duration="7604000" />
+      <workItem from="1585222879651" duration="9870000" />
+      <workItem from="1585415688999" duration="10567000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1584811656527</created>
