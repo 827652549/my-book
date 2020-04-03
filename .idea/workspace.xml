@@ -2,16 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="28cce4ce-56cf-4258-97c7-becdf93a79a4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/docs/coding-secret/java-api.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/index.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/network/详谈输入URL之后.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/speed/speed.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/experience/interview-hr.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/network/seo.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/_sidebar.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_sidebar.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javascript/questions.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javascript/questions.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/network/http.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/network/http.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/react/react.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/react/react.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -50,10 +46,13 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/docs" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="node.js.detected.package.jscs" value="true" />
+    <property name="node.js.path.for.package.jscs" value="project" />
+    <property name="node.js.selected.package.jscs" value="" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="Settings.Markdown" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -98,7 +97,14 @@
       <workItem from="1584839387883" duration="21278000" />
       <workItem from="1585101082591" duration="4814000" />
       <workItem from="1585222879651" duration="9870000" />
-      <workItem from="1585415688999" duration="10567000" />
+      <workItem from="1585415688999" duration="16833000" />
+      <workItem from="1585551653544" duration="433000" />
+      <workItem from="1585552210947" duration="663000" />
+      <workItem from="1585553411209" duration="3000" />
+      <workItem from="1585554402975" duration="1350000" />
+      <workItem from="1585572252150" duration="26000" />
+      <workItem from="1585581439150" duration="3462000" />
+      <workItem from="1585896567435" duration="2276000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1584811656527</created>
@@ -217,6 +223,9 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.md" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">

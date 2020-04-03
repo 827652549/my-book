@@ -10,8 +10,8 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
     <link rel="stylesheet" href="index.css">
-<!--    暂时性关闭评论区，打开请把这段代码取消注释-->
-<!--    <link rel="stylesheet" href="//unpkg.com/gitalk/dist/gitalk.css">-->
+    <!--    暂时性关闭评论区，打开请把这段代码取消注释-->
+    <!--    <link rel="stylesheet" href="//unpkg.com/gitalk/dist/gitalk.css">-->
 
 
 </head>
@@ -38,34 +38,10 @@
             noData: '😞 No Results! ',
             depth: 6
         },
-
-        plugins: [
-            function (hook, vm) {
-                hook.beforeEach(function(content) {
-                    // 每次开始解析 Markdown 内容时调用
-                    let wordsCount = content.match(/[^\s,\#,\*,\-,\|,\~,\[,\],\(,\),\>,\<,\!,\?]/g).length;
-                    // ...
-                    return `<div>全文字数${wordsCount}</div>
-${content}`
-                })
-
-                hook.afterEach(function(html, next) {
-                    // 解析成 html 后调用。beforeEach 和 afterEach 支持处理异步逻辑
-                    // ...
-                    // 异步处理完成后调用 next(html) 返回结果
-                    next(html)
-                })
-
-                hook.doneEach(function() {
-                    // 每次路由切换时数据全部加载完成后调用，没有参数。
-                    // ...
-                })
-
-                hook.ready(function() {
-                    // 初始化并第一次加载完成数据后调用，没有参数。
-                })
-            }
-        ]
+        count:{
+            countable:true,
+            language:'chinese'
+        }
     }
 
 </script>
@@ -79,8 +55,7 @@ ${content}`
 <script src="//unpkg.com/docsify/lib/plugins/search.js"></script>
 <script src="//unpkg.com/docsify/lib/plugins/ga.js"></script>
 <script src="//unpkg.com/docsify-copy-code"></script>
-
-
+<script src="//unpkg.com/docsify-count/dist/countable.js"></script>
 
 
 <!--    暂时性关闭评论区，打开请把这段代码取消注释-->

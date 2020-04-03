@@ -6,6 +6,7 @@
 * **浏览器&网络篇 🕷️**
     * [HTTP](network/http.md)
     * [详谈输入URL之后](network/详谈输入URL之后.md)    
+    * [SEO](network/seo.md)    
 * **CSS篇 🎨**
     * [CSS](css/css.md)
 * **React篇 ⚛️**
@@ -13,7 +14,8 @@
 * **性能优化篇 ⚡️‍**
     * [性能优化](speed/speed.md)
 * **面试常见问题 😈**
-    * [面试一百问（持续更新中）](experience/questions.md)
+    * [面试解惑一百问（持续更新中）](experience/questions.md)
+    * [HR应对锦囊](experience/interview-hr.md)
 * **笔试技巧 ✒️**
     * [Java常用API](coding-secret/java-api.md)
 * **数据结构与算法 📈️**

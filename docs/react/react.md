@@ -102,3 +102,21 @@ Redux适合有回溯需求的项目，比如画板，有时候需要撤销功能
 
 ## 说一下diff算法？
 将树形结构按照层级分解，只比较同级元素，并给每一个单元添加key属性，方便比较。调用setState的时候，给需要重新渲染的位置标记脏值dirty，最后会检查所有标记dirty的component重新绘制
+
+## React Class component和function component有什么区别？
+function comconent是一种无状态组件，更好体验容器和表现分离，直接接收props作为参数，return返回代码片段，没有生命周期，**提倡使用**。
+
+class component有生命周期，用state改变内部状态，可以利用shouldComponentUpdate优化性能
+
+## react hooks
+
+|hook|说明|
+|-|-|
+|useState🏁|给组件添加内部state|
+|useEffect🏁|相当于合并了componentDidMount、componentDidUpdate、componentWillUnmount，用于添加“副作用”；React 将按照 effect 声明的顺序依次调用组件中的每一个 effect。；可根据第二个数组参数有选择调用，传入[]意味着只执行一次
+|useContext🏁|不用组件嵌套就可以订阅React的Context|
+|useReducer|通过reducer来管理本地复杂的state|
+
+hook的规则：
+- 只能在**函数最外层**调用hook，不要在循环、条件判断、子函数中调用
+- 只能在**React函数组件**和**自定义hook**中调用hook
