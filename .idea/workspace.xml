@@ -2,12 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="28cce4ce-56cf-4258-97c7-becdf93a79a4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/docs/experience/interview-hr.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/network/seo.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/coding-secret/regex.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/data-structure/write-test.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/_sidebar.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_sidebar.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/css/css.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/css/css.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/react/react.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/react/react.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -104,7 +103,7 @@
       <workItem from="1585554402975" duration="1350000" />
       <workItem from="1585572252150" duration="26000" />
       <workItem from="1585581439150" duration="3462000" />
-      <workItem from="1585896567435" duration="2276000" />
+      <workItem from="1585896567435" duration="8230000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1584811656527</created>

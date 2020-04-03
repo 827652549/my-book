@@ -18,5 +18,7 @@
     * [HR应对锦囊](experience/interview-hr.md)
 * **笔试技巧 ✒️**
     * [Java常用API](coding-secret/java-api.md)
+    * [正则表达式](coding-secret/regex.md)
 * **数据结构与算法 📈️**
+    * [常用笔试基础](data-structure/write-test.md)
 

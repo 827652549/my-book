@@ -113,7 +113,7 @@ class component有生命周期，用state改变内部状态，可以利用should
 |hook|说明|
 |-|-|
 |useState🏁|给组件添加内部state|
-|useEffect🏁|相当于合并了componentDidMount、componentDidUpdate、componentWillUnmount，用于添加“副作用”；React 将按照 effect 声明的顺序依次调用组件中的每一个 effect。；可根据第二个数组参数有选择调用，传入[]意味着只执行一次
+|useEffect🏁|相当于合并了componentDidMount、componentDidUpdate、componentWillUnmount，用于添加“副作用”；React 将按照 effect 声明的顺序依次调用组件中的每一个 effect；可根据第二个数组参数有选择调用，传入[]意味着只执行一次
 |useContext🏁|不用组件嵌套就可以订阅React的Context|
 |useReducer|通过reducer来管理本地复杂的state|
 
