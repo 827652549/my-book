@@ -122,7 +122,7 @@ var coinChange = function(coins, amount) {
 <summary>展开答案</summary>
 
 ```javascript
-待补充
+待补充。。
 ```
 
 </details>
