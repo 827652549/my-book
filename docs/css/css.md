@@ -46,11 +46,38 @@ bfc作用：
 
 px是绝对大小，em和rem是相对大小：rem基于根元素、em基于父元素（一般1em=16px）
 
+## 让一行文字中的图片垂直居中对齐
+
+图片vertical-align：middle
+
 ## 实现垂直居中的方式
 
 - 文字垂直居中，line-height等于容器height
-
+- 父容器设相等上下内边距，高度auto
+- 父容器display：table、子元素display：table-cell、vertical-align：middle
+- 子元素realtive相对定位，top:50%,再利用translateY(-50%)向上偏移50的子元素高度
+- 利用flex布局，将align-items:center或主轴竖向并利用justify-content：center主轴方向居中
 ## 实现水平居中的方式
+
+- 通过子元素外边距margin：0 auto；
+- 父容器text-align：center，子元素设成行内块
+- 子元素相对定位，left：50%，反向偏移transform:translateX(-50%);
+- flex布局，justify-content: center
+
+<details>
+<summary>点击展开水平居中和垂直居中Demo</summary>
+<pre>
+<iframe  
+ width=90% 
+ src="https://827652549.github.io/exercise/HTML/30.html"  
+ frameborder=0  
+ allowfullscreen>
+ </iframe>
+>
+</pre>
+</details>
+
+
 ## padding、margin参数含义
 
 - padding:10px;//上、下、左、右都是10px
@@ -58,6 +85,56 @@ px是绝对大小，em和rem是相对大小：rem基于根元素、em基于父�
 - padding:10px 20px 30px;//上10px、左、右20px、下30px
 - padding：10px 20px 30px 40px;//上10px、右20px、下30px、左40px（顺时针）
 
+## Flex布局
+### 父容器：
+`flex-direction`:row | row-reverse | column | column-reverse
+
+> 定义主轴方向
+
+`flex-wrap`:nowrap | wrap | wrap-reverse
+
+>定义缠绕方式，即下一行如何换行
 
 
+`flex-flow`:\<flew-direction\> || \<flex-wrap\>
 
+> 复合属性，flew-direction || flex-wrap
+
+`justify-content`:flex-start｜flex-end｜center ｜space-between｜space-around
+>定义主轴上的对齐方式
+
+`align-items`:flex-start｜flex-end｜center｜baseline｜stretch
+>定义交叉轴上的对齐方式
+
+`align-content`:flex-start｜flex-end｜center ｜space-between｜space-around
+> 在wrap换行后，即多根轴线的对齐方式
+
+### 子元素：
+`order`:数字表示排列顺序。数字越小，越靠前。
+`flex-grow`:数字计算占比，基于剩余空间放大元素。默认为0。
+`flex-shrink`:数字计算占比，基于不足空间缩小元素。默认为1。
+`flex-basis`:初始的尺寸。相当于width/height，默认auto
+`flex`:\<flex-grow\> | \<flex-shrink\> | \<flex-basis\>
+>复合属性，默认为“0 1 auto”
+
+## CSS定位方式
+
+- static：默认值。正常流
+- realtive：相对定位，相对于正常位置
+- absolute：基于最近的非static进行偏移
+- fixed：基于视口位置
+- sticky：粘性定位
+
+## 怎么理解z-index
+
+z-index控制重叠元素的叠加顺序，默认为0，值大的在上层，小的在下层。z-index只能影响设置了position值的元素
+
+## 盒模型
+
+盒模型由content(内容)、padding（内边距）、border（边框）、margin（外边距）。
+
+默认情况下，我们定义的width为content的值，即box-sizing：content-box；如果将box-sizing：border-box，此时宽高包括content、padding、border
+
+## 为什么使用translate改变位置而不是定位？
+
+translate()是transform的一个值，改变translate或opacity不会触发重流（reflow）和重绘（repaint），只会触发复合（compositions）。而绝对定位会触发。
