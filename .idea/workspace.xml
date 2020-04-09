@@ -2,7 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="28cce4ce-56cf-4258-97c7-becdf93a79a4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/docs/data-structure/dp.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/data-structure/dp.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/experience/non-technical-questions.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/node/node.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/others/至即将毕业的你.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/_coverpage.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_coverpage.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/_sidebar.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_sidebar.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/browser/questions.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/browser/questions.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/coding-secret/regex.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/coding-secret/regex.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/css/coding.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/css/coding.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/data-structure/write-test.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/data-structure/write-test.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/experience/questions.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/experience/questions.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/fightJob.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/network/http.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/network/http.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/react/react.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/react/react.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/speed/speed.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/speed/speed.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -99,7 +113,8 @@
       <workItem from="1585554402975" duration="1350000" />
       <workItem from="1585572252150" duration="26000" />
       <workItem from="1585581439150" duration="3462000" />
-      <workItem from="1585896567435" duration="21780000" />
+      <workItem from="1585896567435" duration="23369000" />
+      <workItem from="1586347215294" duration="13915000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1584811656527</created>

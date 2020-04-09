@@ -1,4 +1,4 @@
-<img width="180px" style="border-radius: 50%" bor src="https://s1.ax1x.com/2020/03/22/84cWQg.png">
+<img width="180px" style="border-radius: 50%" bor src="https://s1.ax1x.com/2020/04/06/Gysl24.png">
 
 # 前端高频面试精粹
 

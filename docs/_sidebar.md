@@ -14,9 +14,14 @@
     * [浏览器和新技术](browser/questions.md)
 * **React篇 ⚛️**
     * [React](react/react.md)
+* **Node篇 ♻️️**
+    * [Node](node/node.md)
+* **项目篇 🏠**
+    * [项目篇](projects/project.md)
 * **性能优化篇 ⚡️‍**
     * [性能优化](speed/speed.md)
 * **面试常见问题 😈**
+    * [常见非技术问答](experience/non-technical-questions.md)
     * [面试解惑一百问（持续更新中）](experience/questions.md)
     * [HR应对锦囊](experience/interview-hr.md)
 * **笔试技巧 ✒️**
