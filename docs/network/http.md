@@ -73,7 +73,7 @@ PATCH是对PUT的补充。PUT是更新整条记录，对重复字段也进行覆
 |首部字段名|说明|
 |-|-|
 |Cache-Control✨|控制缓存|
-|Connection✨|控制代理不再转发的首部字段、管理持久链接|
+|Connection✨|控制代理不再转发的首部字段、管理持久连接|
 |Transfor-Encoding✨|指定报文主体的传输编码方式|
 |Date|创建报文的日期|
 |Via|代理服务器相关信息|
@@ -85,7 +85,7 @@ PATCH是对PUT的补充。PUT是更新整条记录，对重复字段也进行覆
 ##### 请求首部（Request Header Fields）19个
 |首部字段名|说明|
 |-|-|
-|Accept|客户端或代理能够处理的媒体类型✨|
+|Accept✨|客户端或代理能够处理的媒体类型|
 |Accept-Encoding|优先的内容编码（gzip、deflate……）|
 |Accept-Language|优先的语言（中文、英文……）|
 |Accept-Charset|优先的字符集（ISO-8859-1……）|

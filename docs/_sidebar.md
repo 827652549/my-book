@@ -3,6 +3,7 @@
     * [FAQ](FAQ.md)
 * **JavaScript篇 🧱**
     * [Javascript](javascript/questions.md)
+    * [八大继承](javascript/extends.md)
     * [视频面试-临场出题](javascript/analysis-code.md)
 * **CSS篇 🎨**
     * [CSS](css/css.md)
@@ -21,14 +22,17 @@
     * [项目篇](projects/project.md)
 * **性能优化篇 ⚡️‍**
     * [性能优化](speed/speed.md)
+* **数据结构与算法 📈️**
+    * [常用笔试基础](data-structure/write-test.md)
+    * [动态规划专题](data-structure/dp.md)
+* **前端拓展 👃**
+    * [设计模式和软件开发规范](model/model.md)
 * **面试常见问题 😈**
     * [常见非技术问答](experience/non-technical-questions.md)
-    * [面试解惑一百问（持续更新中）](experience/questions.md)
+    * [面试解惑一百问](experience/questions.md)
     * [HR应对锦囊](experience/interview-hr.md)
 * **笔试技巧 ✒️**
     * [Java常用API](coding-secret/java-api.md)
     * [正则表达式](coding-secret/regex.md)
-* **数据结构与算法 📈️**
-    * [常用笔试基础](data-structure/write-test.md)
-    * [动态规划专题](data-structure/dp.md)
+
 
