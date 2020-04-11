@@ -156,6 +156,7 @@ Cookie、Set-Cookie为cookie服务，Content-Disposition来指示如何显示附
 |401 Unauthorized✨|请求需要通过有HTTP认证信息|
 |403 Forbidden✨|请求资源访问被服务器拒绝|
 |404 Not Found✨|资源未找到|
+|405 method not allowed|请求方式与后台规定的不符合|
 |408 Request Timeout|客户端请求超时|
 |409 Confict|请求资源可能引起冲突|
 |500 Internal Sever Error✨|服务器在执行请求时发生了错误|

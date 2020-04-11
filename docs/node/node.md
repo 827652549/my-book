@@ -31,13 +31,19 @@ nodeJS 是一门单线程!异步!非阻塞语言!
 |path（路径）|处理文件与目录路径的工具|
 |perf_hooks（性能钩子）|监控性能、测量异步操作时长|
 |process（进程）|提供当前进程的信息并对其控制|
-|querystring（查询字符串）|解析和格式化URL查询字符串的工具|
+|querystring（查询字符串）|对HTTP请求所带的数据进行解析|
 |readline（逐行读取）|可一行一行读取流|
 |repl（交互式解释器）|提供了一种“读取-求职-输出”的循环实现，相当于在控制台直接启动node的`>`操作|
 |stream（流）|处理流式数据的对象|
 |string_decoder（字符串解码器）|安全地将Buffer对象解码为字符串|
 |timer（定时器）|实现了与浏览器API类似的定时器|
 |tls（安全传输层）|安全传输层（TLS）及安全套接层（SSL）协议实现，建立在OpenSSL基础上|
-
+|tty（终端）|提供了tty.ReadStream和tty.WriteStream，大多数情况下用户不必手动创建这两个类的实例|
+|url（URL）|处理和解析URL|
+|util（实用工具）|提供了转换回调风格、调试输出、废弃API等相关的工具|
+|v8（V8引擎）|暴露了Node底层二进制文件中的V8版本API|
+|vm（虚拟机）|在V8虚拟机上下文中编译和运行代码|
+|worker_threads（工作线程）|允许使用并行地执行JavaScript的线程|
+|zlib（压缩）|实现压缩功能|
 
 ## Node的事件循环

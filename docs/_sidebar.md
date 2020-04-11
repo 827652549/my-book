@@ -1,7 +1,8 @@
 * **前言**
     * [简介](README.md)
+    * [FAQ](FAQ.md)
 * **JavaScript篇 🧱**
-    * [面试问答](javascript/questions.md)
+    * [Javascript](javascript/questions.md)
     * [视频面试-临场出题](javascript/analysis-code.md)
 * **CSS篇 🎨**
     * [CSS](css/css.md)
