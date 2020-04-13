@@ -42,9 +42,11 @@ bfc作用：
 - `z-index:-9999`置于底层
 - `transform:scale(0,0)`缩放元素到0大小，依然占据空间
 
-## em/rem/px区别？
+## em/rem/px/vw/vh/vmax/vmin区别？
 
-px是绝对大小，em和rem是相对大小：rem基于根元素、em基于父元素（一般1em=16px）
+px是绝对大小，em和rem是相对大小：rem基于根元素(html)的font-size、em基于父元素（一般1em=16px）
+
+vw、vh、vmax、vmin都是基于视口，1vw是视口宽度的百分之一，1vh是视口高度的百分之一，1vmax、1vmin取视口宽高最大或最小的百分之一
 
 ## 让一行文字中的图片垂直居中对齐
 

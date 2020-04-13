@@ -4,7 +4,9 @@
 * **JavaScript篇 🧱**
     * [Javascript](javascript/questions.md)
     * [八大继承](javascript/extends.md)
-    * [视频面试-临场出题](javascript/analysis-code.md)
+    * [十大排序](javascript/sorts.md)
+    * [代码分析](javascript/analysis-code.md)
+    * [手撸代码](javascript/write-code.md)
 * **CSS篇 🎨**
     * [CSS](css/css.md)
     * [现场撸码](css/coding.md)

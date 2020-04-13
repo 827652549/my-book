@@ -10,12 +10,14 @@ React是一个用于构建用户界面的js库。使用JSX语法，专注于view
 目前React的生命周期分为3个阶段: 挂载阶段（Mount）、更新阶段（Update）、卸载阶段（Unmount）
 
 #### 挂载阶段（Mount）：
+
 - **constructor**:构造函数，最先被执行，通常在state里初始化state对象或者给自定义方法绑定this。
 - **getDerivedStateFromProps(nextProps,prevState)**：将传入的props映射到state上面
 - **render**：render渲染
 - **componentDidMount**：这里可以发送服务器请求、获取DOM节点、对canvas进行操作。
 
 #### 更新阶段（Update）：
+
 - **getDerivedStateFromProps**：新的props会传过来
 - **shouldComponentUpdate(nextProps,nextState)**：返回一个布尔值，true表示触发重新渲染，false表示不会触发重新渲染，默认返回true
 - **render**：更新阶段也会触发生命周期
@@ -25,12 +27,6 @@ React是一个用于构建用户界面的js库。使用JSX语法，专注于view
 #### 卸载阶段（Unmount）：
 
 - **componentWillUnmount**：当组件卸载和销毁时调用，可以在这个函数里去清除一些定时器，取消网络请求，清除无效DOM等垃圾清理工作
-
-
-
-
-
-
 
 <details>
 <summary>点击展开React最新生命周期图</summary>
@@ -60,6 +56,17 @@ React并非是直接在真实DOM上绑定事件，为了避免DOM事件滥用，
 这里的异步其实是指将多个state合成到一起进行批量更新。
 
 原理：setState会根据一个变量isBatchingUpdates判断是直接更新this.state还是放到队列回头再说，在React调用合成事件之前会调用batchedUpdates()，通过修改变量isBatchingUpdates为ture，使之为异步。
+
+## 为什么JSX组件名要以大写字母开头？
+
+React要知道要渲染的是组件还是HTML元素
+
+## refs 的作用是什么？
+
+Refs 是 React 提供给我们的安全访问 DOM 元素或者某个组件实例的句柄。
+
+我们可以为元素添加ref属性然后在回调函数中接受该元素在 DOM 树中的句柄，该值会作为回调函数的第一个参数返回
+
 ## 为什么使用Redux？
 （Redux是什么）
 Redux是为了解决组件间通信和组件状态共享。
