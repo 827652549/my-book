@@ -35,6 +35,7 @@
     * [HR应对锦囊](experience/interview-hr.md)
 * **笔试技巧 ✒️**
     * [Java常用API](coding-secret/java-api.md)
+    * [JavaScript常用API](coding-secret/javascript-api.md)
     * [正则表达式](coding-secret/regex.md)
 
 
