@@ -140,3 +140,11 @@ z-index控制重叠元素的叠加顺序，默认为0，值大的在上层，小
 ## 为什么使用translate改变位置而不是定位？
 
 translate()是transform的一个值，改变translate或opacity不会触发重流（reflow）和重绘（repaint），只会触发复合（compositions）。而绝对定位会触发。
+
+## 实现小于12px的字体
+
+chrome最小值支持字体是12px，不论设多小都显示的是12px，如果设为0，则直接不占空间。
+
+可以使用transform:scale(0.5);display:inline-block;
+
+另外也可以做到图片或canvas上，但是可维护性不是多好。
