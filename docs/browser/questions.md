@@ -102,3 +102,21 @@ background、color、box-shadow等等。
 
 ## 移动端适配
 
+
+## 移动端300ms延迟原因及解决方案
+
+早起，iphone在提供了单击和双击缩放的功能，为了方便浏览器判断，就加了300ms的延迟。
+
+**解决1**：
+
+更改默认的视口宽度，设置这个标签，浏览器默认开发者已经做了适配，就禁用双击缩放和300ms延迟，
+
+```<meta name="viewport" content="width=device-width">```
+
+**解决2**：
+
+faskclick https://github.com/ftlabs/fastclick
+
+原理: 在检测到touchend事件的时候，会通过DOM自定义事件立即出发模拟一个click事件，并把浏览器在300ms之后真正的click事件阻止掉
+
+缺点: 脚本相对较大, 不建议使用

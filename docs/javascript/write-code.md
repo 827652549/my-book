@@ -67,8 +67,13 @@ function deepClone1(obj) {
 
 let arr  = [1,2,3,4,4,5,6,7,7,5,5,2,3];
 
+//方法一：sort随机排序
+function fun(arr){
+	arr.sort(()=>)
+}
+
 /**
- * 数组乱序
+ * 方法二：随机交换每个下表值
  * @param arr
  * @returns {*}
  */
@@ -90,3 +95,110 @@ function fun(arr) {
 console.log(fun(arr));
 
 ```
+
+## 数组去重
+
+```javascript
+let arr = [1, 2, 3, 4, 5, 5, 3, 2, 1];
+
+function removeRepeat(arr) {
+    let newArr = [];
+
+    //排序数组
+    arr.sort();
+
+    //当前值
+    let curr = null;
+    
+    for (let i = 0; i < arr.length; i++) {
+        if (curr===arr[i]){
+            continue;
+        }
+
+        curr = arr[i];
+        newArr.push(arr[i]);
+    }
+    return newArr;
+}
+
+console.log(removeRepeat(arr));
+```
+
+## 数组扁平化
+
+```javascript
+let arr = [1, 2, 3, [4, 5], [6, [7, 8]],];
+
+//方法一：flat扁平化数组，默认为1
+console.log(arr.flat(Infinity));
+
+//方法二：递归
+function fun(arr){
+    let newArr = [];
+    arr.forEach(value => {
+        if (Array.isArray(value)){
+            newArr = newArr.concat(fun(value));
+        }else {
+            newArr =newArr.concat(value);
+        }
+    });
+    return newArr;
+}
+
+console.log(fun(arr));
+```
+
+## 手撸继承
+
+创建一个 Person 类，其包含公有属性 name 和私有属性 age 以及公有方法 setAge ；创建一个 Teacher 类，使其继承 Person ，并包含私有属性 studentCount 和私有方法 setStudentCount 
+
+```javascript
+
+const [Person, Teacher] = (function () {
+    const _age = Symbol('_age');
+
+    const _studentCount = Symbol('_studentCount');
+    const _setStudentCount = Symbol('_setStudentCount');
+
+
+    class Person {
+        constructor(name, age) {
+            this.name = name;
+            this[_age] = age;
+        }
+
+        setAge(age) {
+            this[_age] = age;
+        }
+    }
+
+    class Teacher extends Person{
+        constructor(name,age,studentCount){
+            super(name,age);
+            this[_studentCount] = studentCount;
+        }
+
+        /**
+         * 私有方法，设置学生数量
+         * @param studentCount
+         */
+        [_setStudentCount](studentCount){
+            this[_studentCount] = studentCount;
+        }
+
+        setCount(count){
+            this[_setStudentCount](count);
+        }
+
+    }
+
+    return [Person, Teacher];
+})();
+
+const p = new Person('初始名字',0);
+const t = new Teacher('老师',24,55);
+
+```
+
+其实未来js是可以使用#来实现私有属性和私有方法的，截止2020年4月，这个提案已经被审核到[stage3](https://github.com/tc39/proposal-private-methods)阶段，即作为候选的完善阶段。
+## 实现Promise

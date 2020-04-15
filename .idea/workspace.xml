@@ -3,9 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="28cce4ce-56cf-4258-97c7-becdf93a79a4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/_sidebar.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_sidebar.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/coding-secret/regex.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/coding-secret/regex.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/browser/questions.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/browser/questions.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/coding-secret/javascript-api.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/coding-secret/javascript-api.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/javascript/write-code.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javascript/write-code.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/network/http.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/network/http.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/projects/project.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/projects/project.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -106,7 +109,8 @@
       <workItem from="1586347215294" duration="16331000" />
       <workItem from="1586501768996" duration="16268000" />
       <workItem from="1586750667785" duration="8000" />
-      <workItem from="1586759250148" duration="13166000" />
+      <workItem from="1586759250148" duration="23963000" />
+      <workItem from="1586937352277" duration="555000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1584811656527</created>
