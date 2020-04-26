@@ -2,7 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="28cce4ce-56cf-4258-97c7-becdf93a79a4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/docs/experience/_sidebar.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/_sidebar.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_sidebar.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/css/css.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/css/css.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/experience/interview-hr.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/experience/interview-hr.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/experience/non-technical-questions.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/experience/questions.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/experience/questions.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -38,7 +45,7 @@
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/docs" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/docs/experience" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.jscs" value="true" />
     <property name="node.js.path.for.package.jscs" value="project" />
@@ -49,17 +56,18 @@
     <property name="settings.editor.selected.configurable" value="Settings.Markdown" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/docs" />
-      <recent name="$PROJECT_DIR$/docs/javascript" />
-      <recent name="$PROJECT_DIR$/docs/_media" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/docs/browser" />
       <recent name="$PROJECT_DIR$/docs/coding-secret" />
       <recent name="$PROJECT_DIR$/docs" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/docs/foreword" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/docs/experience" />
+      <recent name="$PROJECT_DIR$/docs" />
+      <recent name="$PROJECT_DIR$/docs/javascript" />
+      <recent name="$PROJECT_DIR$/docs/_media" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -106,7 +114,8 @@
       <workItem from="1586759250148" duration="23963000" />
       <workItem from="1586937352277" duration="3503000" />
       <workItem from="1587050829345" duration="2875000" />
-      <workItem from="1587180990655" duration="111000" />
+      <workItem from="1587180990655" duration="2960000" />
+      <workItem from="1587709529093" duration="2687000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1584811656527</created>

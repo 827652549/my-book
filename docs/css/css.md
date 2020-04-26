@@ -148,3 +148,12 @@ chrome最小值支持字体是12px，不论设多小都显示的是12px，如果
 可以使用transform:scale(0.5);display:inline-block;
 
 另外也可以做到图片或canvas上，但是可维护性不是多好。
+
+## 动画（transition/animation）区别
+
+**区别：**
+transition强调过渡，需要触发一个事件，比如鼠标移入、点击等。
+
+animation设置多个关键帧，实现自由动画，不需要触发任何事件也可实现动画效果；而且@keyframe控制当前帧属性的样式，创建由当前样式逐渐改为新样式的动画，更灵活。
+
+Canvas实现动画，性能更高。
