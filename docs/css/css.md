@@ -88,7 +88,9 @@ vw、vh、vmax、vmin都是基于视口，1vw是视口宽度的百分之一，1v
 - padding：10px 20px 30px 40px;//上10px、右20px、下30px、左40px（顺时针）
 
 ## Flex布局
-### 父容器：
+
+**父容器：**
+
 `flex-direction`:row | row-reverse | column | column-reverse
 
 > 定义主轴方向
@@ -111,7 +113,8 @@ vw、vh、vmax、vmin都是基于视口，1vw是视口宽度的百分之一，1v
 `align-content`:flex-start｜flex-end｜center ｜space-between｜space-around
 > 在wrap换行后，即多根轴线的对齐方式
 
-### 子元素：
+** 子元素：**
+
 `order`:数字表示排列顺序。数字越小，越靠前。
 `flex-grow`:数字计算占比，基于剩余空间放大元素。默认为0。
 `flex-shrink`:数字计算占比，基于不足空间缩小元素。默认为1。

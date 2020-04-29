@@ -6,5 +6,5 @@
 
 * [CSDN](https://blog.csdn.net/HuoYiHengYuan)
 
-* [作者](https://github.com/827652549)
+* [公众号](https://github.com/827652549)
 
