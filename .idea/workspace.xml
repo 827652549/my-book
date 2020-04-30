@@ -2,15 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="28cce4ce-56cf-4258-97c7-becdf93a79a4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/docs/others/春招总结干货.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/_coverpage.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_coverpage.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/_navbar.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_navbar.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/_sidebar.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_sidebar.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/css/css.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/css/css.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/experience/_sidebar.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/experience/questions.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/experience/questions.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -117,7 +110,8 @@
       <workItem from="1587050829345" duration="2875000" />
       <workItem from="1587180990655" duration="2960000" />
       <workItem from="1587709529093" duration="5639000" />
-      <workItem from="1588067247761" duration="2843000" />
+      <workItem from="1588067247761" duration="4391000" />
+      <workItem from="1588251314720" duration="204000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1584811656527</created>
