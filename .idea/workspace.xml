@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="28cce4ce-56cf-4258-97c7-becdf93a79a4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/_navbar.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_navbar.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javascript/questions.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javascript/questions.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/javascript/write-code.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javascript/write-code.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/speed/speed.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/speed/speed.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -117,7 +115,10 @@
       <workItem from="1588251314720" duration="2094000" />
       <workItem from="1589181389973" duration="527000" />
       <workItem from="1589588888427" duration="26000" />
-      <workItem from="1590123494854" duration="316000" />
+      <workItem from="1590123494854" duration="1088000" />
+      <workItem from="1590163031856" duration="1006000" />
+      <workItem from="1590206231017" duration="792000" />
+      <workItem from="1597232278848" duration="686000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1584811656527</created>

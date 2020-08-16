@@ -202,3 +202,40 @@ const t = new Teacher('老师',24,55);
 
 其实未来js是可以使用#来实现私有属性和私有方法的，截止2020年4月，这个提案已经被审核到[stage3](https://github.com/tc39/proposal-private-methods)阶段，即作为候选的完善阶段。
 ## 实现Promise
+
+## 防抖和节流
+
+防抖：在事件被触发n秒后再执行回调，如果在这n秒内又被触发，则重新计时。适用于：输入框联想，防止多次点击提交按钮。
+节流：规定在一个单位时间内，只能触发一次函数。如果这个单位时间内触发多次函数，只有一次生效。适用于：浏览器resize、onscroll。
+
+```javascript
+// 防抖函数
+const debounce = (fn, delay) => {
+  let timer = null;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      fn.apply(this, args);
+    }, delay);
+  };
+};
+
+
+// 节流函数
+const throttle = (fn, delay = 500) => {
+  let flag = true;
+  return (...args) => {
+    if (!flag) return;
+    flag = false;
+    setTimeout(() => {
+      fn.apply(this, args);
+      flag = true;
+    }, delay);
+  };
+};
+
+```
+
+防抖节流演示：
+
+<iframe src="https://codesandbox.io/embed/static-ce05g?fontsize=14" title="static" allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media" style="width:100%; height:700px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
