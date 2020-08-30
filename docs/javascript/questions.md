@@ -2,11 +2,83 @@
 说句真心话，一切博文和专栏都不如红宝书《JavaScript高级程序设计》和犀牛书《JavaScript权威指南》，这两本书将会伴随你一生的前端生涯，**选一本**，**吃透它**，从此前端之路有条不紊！
 ## 跨域原理，解决方案
 
-浏览器的“同源策略”会导致跨域，其中同源是指“协议、域名、端口”都相同。我曾经做项目的时候就遇到过跨域问题，当时chrome控制台爆红，后来在jsonp和CORS之间进行对比，最后选择了CORS。
+[跨域参考链接](https://segmentfault.com/a/1190000011145364)
 
-**为什么选择CORS？**因为jsonp只支持get请求，但我们还有post请求，CORS就满足了我的要求。服务端设置响应头中的Access-Control-Allow-Origin为对应的域名。（接下来有可能会提问网络问题）
+浏览器的“同源策略”会导致跨域，其中同源是指“协议、域名、端口”都相同。
+
+跨域解决方案
+
+1. **通过jsonp跨域**
 
 jsonp原理：静态文件不受同源政策影响，我可以返回一个script里面有一个回调函数，函数的里面是我要的东西。
+
+2. **document.domain + iframe跨域**
+
+此方案仅限主域相同，子域不同的跨域应用场景。
+
+实现原理：两个页面都通过js强制设置document.domain为基础主域，就实现了同域。
+
+3. **location.hash + iframe**
+
+实现原理： a欲与b跨域相互通信，通过中间页c来实现。 三个页面，不同域之间利用iframe的location.hash传值，相同域之间直接js访问来通信。
+
+具体实现：A域：a.html -> B域：b.html -> A域：c.html，a与b不同域只能通过hash值单向通信，b与c也不同域也只能单向通信，但c与a同域，所以c可通过parent.parent访问a页面所有对象。
+
+4. **window.name + iframe跨域**
+
+window.name属性的独特之处：name值在不同的页面（甚至不同域名）加载后依旧存在，并且可以支持非常长的 name 值（2MB）。
+
+通过iframe的src属性由外域转向本地域，跨域数据即由iframe的window.name从外域传递到本地域。这个就巧妙地绕过了浏览器的跨域访问限制，但同时它又是安全操作。
+
+5. **postMessage跨域**
+
+postMessage是HTML5 XMLHttpRequest Level 2中的API，且是为数不多可以跨域操作的window属性之一，它可用于解决以下方面的问题：
+
+
+- 页面和其打开的新窗口的数据传递
+- 多窗口之间消息传递
+- 页面与嵌套的iframe消息传递
+- 上面三个场景的跨域数据传递
+
+用法：postMessage(data,origin)方法接受两个参数
+
+data： html5规范支持任意基本类型或可复制的对象，但部分浏览器只支持字符串，所以传参时最好用JSON.stringify()序列化。
+
+origin： 协议+主机+端口号，也可以设置为"*"，表示可以传递给任意窗口，如果要指定和当前窗口同源的话设置为"/"。
+
+6. **跨域资源共享（CORS）**
+
+**为什么选择CORS？** 因为jsonp只支持get请求，但我们还有post请求，CORS就满足了我的要求。服务端设置响应头中的Access-Control-Allow-Origin为对应的域名。
+
+7. **nginx代理跨域**
+
+##### nginx反向代理接口跨域
+ 
+浏览器跨域访问js、css、img等常规静态资源被同源策略许可，但iconfont字体文件(eot|otf|ttf|woff|svg)例外，此时可在nginx的静态资源服务器中加入以下配置。
+ 
+ ```‌
+ location / {
+  add_header Access-Control-Allow-Origin *;
+}
+ ```
+##### nginx配置解决iconfont跨域
+
+跨域原理： 同源策略是浏览器的安全策略，不是HTTP协议的一部分。服务器端调用HTTP接口只是使用HTTP协议，不会执行JS脚本，不需要同源策略，也就不存在跨越问题。
+
+实现思路：通过nginx配置一个代理服务器（域名与domain1相同，端口不同）做跳板机，反向代理访问domain2接口，并且可以顺便修改cookie中domain信息，方便当前域cookie写入，实现跨域登录。
+ 
+8. **nodejs中间件代理跨域**
+
+node中间件实现跨域代理，原理大致与nginx相同，都是通过启一个代理服务器，实现数据的转发，也可以通过设置cookieDomainRewrite参数修改响应头中cookie中域名，实现当前域的cookie写入，方便接口登录认证。
+
+9. **WebSocket协议跨域**
+
+WebSocket protocol是HTML5一种新的协议。它实现了浏览器与服务器全双工通信，同时允许跨域通讯，是server push技术的一种很好的实现。
+
+原生WebSocket API使用起来不太方便，我们使用Socket.io，它很好地封装了webSocket接口，提供了更简单、灵活的接口，也对不支持webSocket的浏览器提供了向下兼容。
+
+
+
 
 ## 原型链✨
 
