@@ -1,5 +1,31 @@
 
-
+## 响应式布局怎么实现
+  
+  1. **使用设备的宽度作为视图宽度并禁止初始的缩放**
+  
+  > <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  2. **通过媒体查询来设置样式media query**
+  
+  ```javascript
+   @media screen and (max-width:980px){
+           #head { … }
+           #content { … }
+           #footer { … }
+      }
+  ```
+  
+  
+  3. **‌设置多种视图宽度**
+  
+  假如我们要兼容ipad和iphone视图，我们可以这样设置：
+  
+  ```
+  /** iPad **/
+  @media only screen and (min-width: 768px) and (max-width: 1024px) {}
+  /** iPhone **/
+  @media only screen and (min-width: 320px) and (max-width: 767px) {}
+  ```
 ## SEO
 
 新站可以通过外链与站内文章来提升搜索引擎的收录权重，老站可以通过提升用户体验，增加点击率来提升竞争力。

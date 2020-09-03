@@ -160,3 +160,27 @@ transition强调过渡，需要触发一个事件，比如鼠标移入、点击�
 animation设置多个关键帧，实现自由动画，不需要触发任何事件也可实现动画效果；而且@keyframe控制当前帧属性的样式，创建由当前样式逐渐改为新样式的动画，更灵活。
 
 Canvas实现动画，性能更高。
+
+## 非行内style中dom.style.top获取为空
+
+使用`offsetLeft`、`offsetTop`来替代style.x,style.y
+
+```html
+<style>
+#id{
+	position:absolute;
+	left:200px;
+	top:300px;
+}
+</style>
+<div id="red"></div>
+<script>
+document.getElementById('red').style.left;//''
+document.getElementById('red').style.top;//''
+
+document.getElementById('red').offsetLeft;//200
+document.getElementById('red').offsetTop;//300
+
+</script>
+```
+

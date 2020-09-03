@@ -274,3 +274,10 @@ CDN内容分发网络，可以做到尽可能地缩短地域距离。CDN提供�
 > 刷新：CDN节点缓存内容强制过期，当向CDN节点请求资源时，会从源站获取资源并将其缓存。
 > 
 > 预热：源站主动将对应资源缓存到CDN节点，首次请求时，就你那个直接从CDN节点缓存中获取最新资源。
+
+### cookie，localStorage， sessionStorage三者区别
+
+- cookie始终在同源的http请求中携带，即使不需要，cookie在浏览器和服务器中来回传递。而localStorage和sessionStorage一般用于本地存储，不会好服务器通信，也不会自动把数据发送给服务器。
+- 存储大小不同，cookie为4kb左右；localStorage， sessionStorage可以达到5M
+- 数据有效期不同，sessionStorage仅在同源窗口中有效，关闭浏览器窗口就消失了，cookie在过期时间前一直有效，即使在关闭浏览器之后，localStorage长期有效，除非主动删除
+- localStorage， sessionStorage有现成的API， cookie需要程序员手动封装

@@ -239,3 +239,169 @@ const throttle = (fn, delay = 500) => {
 防抖节流演示：
 
 <iframe src="https://codesandbox.io/embed/static-ce05g?fontsize=14" title="static" allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media" style="width:100%; height:700px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+## 实现new操作符
+
+```javascript
+/**
+ * 模拟实现 new 操作符
+ * @param  {Function} ctor [构造函数]
+ * @return {Object|Function|Regex|Date|Error}      [返回结果]
+ */
+function newOperator(ctor){
+    if(typeof ctor !== 'function'){
+      throw 'newOperator function the first param must be a function';
+    }
+    // ES6 new.target 是指向构造函数
+    newOperator.target = ctor;
+    // 1.创建一个全新的对象，
+    // 2.并且执行[[Prototype]]链接
+    // 4.通过`new`创建的每个对象将最终被`[[Prototype]]`链接到这个函数的`prototype`对象上。
+    var newObj = Object.create(ctor.prototype);
+    // ES5 arguments转成数组 当然也可以用ES6 [...arguments], Aarry.from(arguments);
+    // 除去ctor构造函数的其余参数
+    var argsArr = [].slice.call(arguments, 1);
+    // 3.生成的新对象会绑定到函数调用的`this`。
+    // 获取到ctor函数返回结果
+    var ctorReturnResult = ctor.apply(newObj, argsArr);
+    // 小结4 中这些类型中合并起来只有Object和Function两种类型 typeof null 也是'object'所以要不等于null，排除null
+    var isObject = typeof ctorReturnResult === 'object' && ctorReturnResult !== null;
+    var isFunction = typeof ctorReturnResult === 'function';
+    if(isObject || isFunction){
+        return ctorReturnResult;
+    }
+    // 5.如果函数没有返回对象类型`Object`(包含`Functoin`, `Array`, `Date`, `RegExg`, `Error`)，那么`new`表达式中的函数调用会自动返回这个新的对象。
+    return newObj;
+}
+```
+
+## 实现bind
+
+```javascript
+// 第三版 实现new调用
+Function.prototype.bindFn = function bind(thisArg){
+    if(typeof this !== 'function'){
+        throw new TypeError(this + ' must be a function');
+    }
+    // 存储调用bind的函数本身
+    var self = this;
+    // 去除thisArg的其他参数 转成数组
+    var args = [].slice.call(arguments, 1);
+    var bound = function(){
+        // bind返回的函数 的参数转成数组
+        var boundArgs = [].slice.call(arguments);
+        var finalArgs = args.concat(boundArgs);
+        // new 调用时，其实this instanceof bound判断也不是很准确。es6 new.target就是解决这一问题的。
+        if(this instanceof bound){
+            // 这里是实现上文描述的 new 的第 1, 2, 4 步
+            // 1.创建一个全新的对象
+            // 2.并且执行[[Prototype]]链接
+            // 4.通过`new`创建的每个对象将最终被`[[Prototype]]`链接到这个函数的`prototype`对象上。
+            // self可能是ES6的箭头函数，没有prototype，所以就没必要再指向做prototype操作。
+            if(self.prototype){
+                // ES5 提供的方案 Object.create()
+                // bound.prototype = Object.create(self.prototype);
+                // 但 既然是模拟ES5的bind，那浏览器也基本没有实现Object.create()
+                // 所以采用 MDN ployfill方案 https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/create
+                function Empty(){}
+                Empty.prototype = self.prototype;
+                bound.prototype = new Empty();
+            }
+            // 这里是实现上文描述的 new 的第 3 步
+            // 3.生成的新对象会绑定到函数调用的`this`。
+            var result = self.apply(this, finalArgs);
+            // 这里是实现上文描述的 new 的第 5 步
+            // 5.如果函数没有返回对象类型`Object`(包含`Functoin`, `Array`, `Date`, `RegExg`, `Error`)，
+            // 那么`new`表达式中的函数调用会自动返回这个新的对象。
+            var isObject = typeof result === 'object' && result !== null;
+            var isFunction = typeof result === 'function';
+            if(isObject || isFunction){
+                return result;
+            }
+            return this;
+        }
+        else{
+            // apply修改this指向，把两个函数的参数合并传给self函数，并执行self函数，返回执行结果
+            return self.apply(thisArg, finalArgs);
+        }
+    };
+    return bound;
+}
+```
+
+## 实现apply和call方法
+
+**apply**
+
+```javascript
+// 浏览器环境 非严格模式
+function getGlobalObject(){
+    return this;
+}
+function generateFunctionCode(argsArrayLength){
+    var code = 'return arguments[0][arguments[1]](';
+    for(var i = 0; i < argsArrayLength; i++){
+        if(i > 0){
+            code += ',';
+        }
+        code += 'arguments[2][' + i + ']';
+    }
+    code += ')';
+    // return arguments[0][arguments[1]](arg1, arg2, arg3...)
+    return code;
+}
+Function.prototype.applyFn = function apply(thisArg, argsArray){ // `apply` 方法的 `length` 属性是 `2`。
+    // 1.如果 `IsCallable(func)` 是 `false`, 则抛出一个 `TypeError` 异常。
+    if(typeof this !== 'function'){
+        throw new TypeError(this + ' is not a function');
+    }
+    // 2.如果 argArray 是 null 或 undefined, 则
+    // 返回提供 thisArg 作为 this 值并以空参数列表调用 func 的 [[Call]] 内部方法的结果。
+    if(typeof argsArray === 'undefined' || argsArray === null){
+        argsArray = [];
+    }
+    // 3.如果 Type(argArray) 不是 Object, 则抛出一个 TypeError 异常 .
+    if(argsArray !== new Object(argsArray)){
+        throw new TypeError('CreateListFromArrayLike called on non-object');
+    }
+    if(typeof thisArg === 'undefined' || thisArg === null){
+        // 在外面传入的 thisArg 值会修改并成为 this 值。
+        // ES3: thisArg 是 undefined 或 null 时它会被替换成全局对象 浏览器里是window
+        thisArg = getGlobalObject();
+    }
+    // ES3: 所有其他值会被应用 ToObject 并将结果作为 this 值，这是第三版引入的更改。
+    thisArg = new Object(thisArg);
+    var __fn = '__' + new Date().getTime();
+    // 万一还是有 先存储一份，删除后，再恢复该值
+    var originalVal = thisArg[__fn];
+    // 是否有原始值
+    var hasOriginalVal = thisArg.hasOwnProperty(__fn);
+    thisArg[__fn] = this;
+    // 9.提供 `thisArg` 作为 `this` 值并以 `argList` 作为参数列表，调用 `func` 的 `[[Call]]` 内部方法，返回结果。
+    // ES6版
+    // var result = thisArg[__fn](...args);
+    var code = generateFunctionCode(argsArray.length);
+    var result = (new Function(code))(thisArg, __fn, argsArray);
+    delete thisArg[__fn];
+    if(hasOriginalVal){
+        thisArg[__fn] = originalVal;
+    }
+    return result;
+};
+```
+
+**call**
+
+```javascript
+Function.prototype.callFn = function call(thisArg){
+    var argsArray = [];
+    var argumentsLength = arguments.length;
+    for(var i = 0; i < argumentsLength - 1; i++){
+        // argsArray.push(arguments[i + 1]);
+        argsArray[i] = arguments[i + 1];
+    }
+    console.log('argsArray:', argsArray);
+    return this.applyFn(thisArg, argsArray);
+}
+```
+
