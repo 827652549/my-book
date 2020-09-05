@@ -2,7 +2,7 @@
 
 * [简介](README.md)
 
-* [Github](https://827652549.github.io/my-book)
+* [Github](https://github.com/827652549/my-book)
 
 * [CSDN](https://blog.csdn.net/HuoYiHengYuan)
 

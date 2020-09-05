@@ -144,8 +144,17 @@ function fun(arr){
     });
     return newArr;
 }
-
 console.log(fun(arr));
+
+//方法三：toString()
+//实现到Array上
+Array.prototype.f2=function(){
+ let arr=this;
+ return arr.toString().split(',')
+}
+console.log(f2(arr));
+
+
 ```
 
 ## 手撸继承
@@ -201,7 +210,207 @@ const t = new Teacher('老师',24,55);
 ```
 
 其实未来js是可以使用#来实现私有属性和私有方法的，截止2020年4月，这个提案已经被审核到[stage3](https://github.com/tc39/proposal-private-methods)阶段，即作为候选的完善阶段。
+
 ## 实现Promise
+
+**第一版 Promise：能保存回调方法**
+
+思路是在 .then() 方法中, 将 fullfill 和 reject 结果的回调函数保存下来, 然后在异步方法中调用. 因为是异步调用, 根据 event-loop 的原理, promiseAsyncFunc().then(fulfillCallback, rejectCallback) 传入的 callback 在异步调用结束时一定是已经赋值过了.
+
+```javascript
+// Promise 形式的异步方法定义
+var promiseAsyncFunc = function() {
+  var fulfillCallback
+  var rejectCallback
+
+  setTimeout(() => {
+    var randomNumber = Math.random()
+    if (randomNumber > 0.5) fulfillCallback(randomNumber)
+    else rejectCallback(randomNumber)
+  }, 1000)
+  return {
+    then: function(_fulfillCallback, _rejectCallback) {
+      fulfillCallback = _fulfillCallback
+      rejectCallback = _rejectCallback
+    }
+  }
+}
+
+// Promise 形式的异步方法调用
+promiseAsyncFunc().then(fulfillCallback, rejectCallback)
+
+```
+
+<details>
+<summary>【点击展开】更高级的实现Promise的方法</summary>
+<pre>
+**‌第二版 Promise：实构造函数：**
+
+当前我们的实现 Promise 中，异步逻辑代码和 Promise 的代码是杂糅在一起的，让我们将其区分开：
+
+定义一个新方法 ownPromise() 用于创建 Promise，并在promiseAsyncFunc() 中暴露出 fulfill 和 reject 接口方便异步代码去调用。
+
+```javascript
+var promiseAsyncFunc = function() {
+  var fulfillCallback
+  var rejectCallback
+
+  return {
+    fulfill: function(value) {
+      if (fulfillCallback && typeof fulfillCallback === 'function') {
+        fulfillCallback(value)
+      }
+    },
+    reject: function(err) {
+      if (rejectCallback && typeof rejectCallback === 'function') {
+        rejectCallback(err)
+      }
+    },
+    promise: {
+      then: function(_fulfillCallback, _rejectCallback) {
+        fulfillCallback = _fulfillCallback
+        rejectCallback = _rejectCallback
+      }
+    }
+  }
+}
+
+let ownPromise = function(asyncCall) {
+  let defer = promiseAsyncFunc()
+  asyncCall(defer.fulfill, defer.reject)
+  return defer.promise
+}
+
+// Promise 形式的异步方法调用
+ownPromise(function(fulfill, reject) {
+  setTimeout(() => {
+    var randomNumber = Math.random()
+    if (randomNumber > 0.5) fulfill(randomNumber)
+    else reject(randomNumber)
+  }, 1000)
+})
+
+```
+
+**‌第三版 Promise: 支持状态管理**
+
+为了实现规范中对于 Promise 状态变化的要求, 我们需要为 Promise 加入状态管理, 可以利用 Symbol 来表示状态常量
+
+为了判断 Promise 的状态, 我们加入了 fulfill 和 reject 两个方法。并在其中判断 promise 当前状态。如果不是 pending 状态则直接 return(因为 Promise 状态只可能改变一次)。
+
+要实现这样的规范：
+
+- 只允许改变一次状态
+- 只能从 pending => fulfilled 或 pending => rejected
+
+```javascript
+const PENDING = Symbol('pending')
+const FULFILLED = Symbol('fulfilled')
+const REJECTED = Symbol('rejected')
+
+// Promise 形式的异步方法定义
+var promiseAsyncFunc = function() {
+  var status = PENDING
+  var fulfillCallback
+  var rejectCallback
+
+  return {
+    fulfill: function(value) {
+      if (status !== PENDING) return
+      if (typeof fulfillCallback === 'function') {
+        fulfillCallback(value)
+        status = FULFILLED
+      }
+    },
+    reject(error) {
+      if (status !== PENDING) return
+      if (typeof rejectCallback === 'function') {
+        rejectCallback(error)
+        status = REJECTED
+      }
+    },
+    promise: {
+      then: function(_fulfillCallback, _rejectCallback) {
+        fulfillCallback = _fulfillCallback
+        rejectCallback = _rejectCallback
+      }
+    }
+  }
+}
+
+let ownPromise = function(asyncCall) {
+  let defer = promiseAsyncFunc()
+  asyncCall(defer.fulfill, defer.reject)
+  return defer.promise
+}
+
+// Promise 形式的异步方法调用
+ownPromise(function(fulfill, reject) {
+  setTimeout(() => {
+    var randomNumber = Math.random()
+    if (randomNumber > 0.5) fulfill(randomNumber)
+    else reject(randomNumber)
+  }, 1000)
+}).then(data => console.log(data), err => console.log(err))
+```
+
+</pre>
+</details>
+
+## Promise.all()
+promise.all 是解决并发问题的，多个异步并发获取最终的结果（如果有一个失败则失败）。
+
+```javascript
+Promise.all = function(values) {
+  if (!Array.isArray(values)) {
+    const type = typeof values;
+    return new TypeError(`TypeError: ${type} ${values} is not iterable`)
+  }
+  
+  return new Promise((resolve, reject) => {
+    let resultArr = [];
+    let orderIndex = 0;
+    const processResultByKey = (value, index) => {
+      resultArr[index] = value;
+      if (++orderIndex === values.length) {
+          resolve(resultArr)
+      }
+    }
+    for (let i = 0; i < values.length; i++) {
+      let value = values[i];
+      if (value && typeof value.then === 'function') {
+        value.then((value) => {
+          processResultByKey(value, i);
+        }, reject);
+      } else {
+        processResultByKey(value, i);
+      }
+    }
+  });
+}
+
+```
+## Promise.race()
+
+Promise.race 用来处理多个请求，采用最快的（谁先完成用谁的）。
+
+```
+Promise.race = function(promises) {
+  return new Promise((resolve, reject) => {
+    // 一起执行就是for循环
+    for (let i = 0; i < promises.length; i++) {
+      let val = promises[i];
+      if (val && typeof val.then === 'function') {
+        val.then(resolve, reject);
+      } else { // 普通值
+        resolve(val)
+      }
+    }
+  });
+}
+
+```
+
 
 ## 防抖和节流
 
@@ -277,6 +486,35 @@ function newOperator(ctor){
 
 ## 实现bind
 
+**简单版本**：
+
+```javascript
+Function.prototype.myBind = function(thisArg) {
+  if (typeof this !== 'function') {
+    return;
+  }
+  let _self = this;
+  let args = Array.prototype.slice.call(arguments, 1)
+  let fnBound = function () {
+    // 检测 New
+    // 如果当前函数的this指向的是构造函数中的this 则判定为new 操作
+    let _this = this instanceof _self ? this : thisArg;
+    return _self.apply(_this, args.concat(Array.prototype.slice.call(arguments)));
+  }
+  // 为了完成 new操作 需要原型链接 
+  fnBound.prototype = this.prototype;
+  return fnBound;
+}
+
+
+```
+
+<details>
+<summary>【点击展开】更高级的实现bind()的方法</summary>
+<pre>
+
+**bind高级版本：**
+
 ```javascript
 // 第三版 实现new调用
 Function.prototype.bindFn = function bind(thisArg){
@@ -329,7 +567,147 @@ Function.prototype.bindFn = function bind(thisArg){
 }
 ```
 
+</pre>
+</details>
+
+
 ## 实现apply和call方法
+
+**简单的ES6实现call**
+
+```javascript
+/**
+ * @description 使用ES6函数的rest参数和数组的扩展运算符实现call方法
+ * @param {Object} context call方法一个指定的this值
+ * @param {Object, String, Number, Boolean} context call方法一个指定的this值
+ * @returns {Object, String, Number, Boolean} 返回调用函数的值
+ */
+Function.prototype.call = function(context, ...args) {
+  // 使用ES6函数的rest参数(形式为...变量名),args是数组
+  // context为null的时候，context为window
+  var context = context || window
+  // 获取调用call的函数
+  context.fn = this
+  // 使用ES6扩展运算符（...）执行函数，返回结果
+  var result = context.fn(...args)
+  // 删除fn属性
+  delete context.fn
+  // 返回结果
+  return result;
+}
+```
+
+**使用ES3实现call**：
+
+```javascript
+
+/**
+ * @description 使用ES3实现call方法
+ * @param {Object} context call方法一个指定的this值
+ * @returns {Object, String, Number, Boolean} 返回调用函数的值
+ */
+Function.prototype.call = function (context) {
+    // context为null的时候，context为window
+    var context = context || window
+    // 获取调用call的函数
+    context.fn = this
+    // 获取call方法的不定长参数
+    var args = []
+    for(var i = 1, len = arguments.length; i < len; i++) {
+        args.push('arguments[' + i + ']')
+    }
+    // 运行fn函数并返回结果，
+    // eval(string)通过计算string得到的值
+    var result = eval('context.fn(' + args +')')
+    // 删除fn属性
+    delete context.fn
+    // 返回结果
+    return result;
+}
+/**
+ * @description 测试call方法
+ * @param {Number} c,d 函数的参宿
+ * @returns {Number} 返回add函数的计算结果
+ */
+function add(c, d){  
+  return this.a + this.b + c + d  
+}  
+var o = {a:1, b:3} 
+add.call(o, 5, 7) // 16
+
+```
+
+**ES6实现apply**：
+
+```javascript
+/**
+ * @description 使用ES6数组的扩展运算符实现apply方法
+ * @param {Object} context apply方法一个指定的this值
+ * @param {Array} arr apply方法传递给调用函数的参数
+ * @returns {Object, String, Number, Boolean} 返回调用函数的值
+ */
+Function.prototype.apply = function(context, arr) {
+  // context为null的时候，context为window
+  var context = context || window
+  // 获取调用apply的函数
+  context.fn = this
+  // 使用ES6扩展运算符（...）执行函数，返回结果
+  var result = context.fn(...arr)
+  // 删除fn属性
+  delete context.fn
+  // 返回结果
+  return result
+}
+```
+
+**ES3实现apply**：
+
+```javascript
+/**
+ * @description 使用ES3实现apply方法
+ * @param {Object} context apply方法一个指定的this值
+ * @param {Array} arr apply方法传递给调用函数的参数
+ * @returns {Object, String, Number, Boolean} 返回调用函数的值
+ */
+Function.prototype.apply= function (context, arr) {
+    // context为null的时候，context为window
+    var context = context || window
+    // 获取调用apply的函数
+    context.fn = this
+    var result
+    // 判断apply是否只有一个参数
+    if (!arr) {
+      // 执行函数
+      result = context.fn();
+    } else {
+      // 获取参数
+      var args = [];
+      for (var i = 0, len = arr.length; i < len; i++) {
+        args.push('arr[' + i + ']');
+      }
+      // 执行函数
+      result = eval('context.fn(' + args + ')')
+    }
+    // 删除fn属性
+    delete context.fn
+    // 返回结果
+    return result;
+}
+/**
+ * @description 测试apply方法
+ * @param {Number} c,d 函数的参宿
+ * @returns {Number} 返回add函数的计算结果
+ */
+function add(c, d){  
+  return this.a + this.b + c + d  
+}  
+var o = {a:1, b:3} 
+add.apply(o, [5, 7]) // 16
+```
+
+<details>
+<summary>【点击展开】更高级的实现apply()和call()的方法</summary>
+<pre>
 
 **apply**
 
@@ -392,6 +770,7 @@ Function.prototype.applyFn = function apply(thisArg, argsArray){ // `apply` 方�
 
 **call**
 
+
 ```javascript
 Function.prototype.callFn = function call(thisArg){
     var argsArray = [];
@@ -405,3 +784,5 @@ Function.prototype.callFn = function call(thisArg){
 }
 ```
 
+</pre>
+</details>
