@@ -15,6 +15,8 @@
 - concat(数/数组)----连接数组，返回一个副本
 - sort()----按照字符编码排序
 
+- splice(start,deleteCount,...['items'])----从start开始删除deleteCount个元素，并添加items
+
 **字符串**：
 
 - split(正则)----以表达式拆分字符串，返回数组

@@ -2,6 +2,8 @@
 
 由于带上题解文件篇幅过长，所以通过detail标签将部分答案隐藏在折叠区，需要的同学可以展开查看答案：
 
+?> 这一部分的内容主要还是以理解和掌握为主，面试官更多还是考察你的基础知识的运用。
+
 ## 循环输出setTimeout
 ```javascript
 for (var i = 0; i < 5; i++) {
@@ -126,3 +128,49 @@ console.log(a.x); // 为什么输出undefined？
 
 **‌尽量不要使用JS的连续赋值操作**
 
+## 浏览器事件循环event-loop
+
+思路：
+
+- 主线程=>微任务=>宏任务
+- 遇setTimeout、setInterval放入到宏任务中
+- new Promise构造函数的内容作为主线程，遇到resolve()则把then的内容放入到微任务中，构造函数中resolve()后的内容继续执行
+- async关键字将函数封装成Promise，函数里遇到await则相当于对应的异步函数转化为new Promise构造函数，依据上面的规则判断
+
+```javascript
+async function async1(){
+    console.log('async1 start')
+    await async2()
+    console.log('async1 end')
+}
+
+async function async2(){
+    console.log('async2')
+}
+
+console.log('script start')
+
+setTimeout(function(){
+    console.log('setTimeOut')
+}, 0)
+
+async1()
+
+new Promise(function(resolve){
+    console.log('promise1') 
+    resolve()
+}).then(function(){
+    console.log('promise2') 
+})
+
+console.log('script end')
+
+//script start
+//async1 start
+//async2
+//promise1
+//script end
+//async1 end
+//promise2
+//setTimeOut
+```

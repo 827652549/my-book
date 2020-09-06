@@ -786,3 +786,54 @@ Function.prototype.callFn = function call(thisArg){
 
 </pre>
 </details>
+
+## 大数相加
+
+```javascript
+function addBigNum(a,b){
+  let res = ''
+      loc = 0
+  a = a.split('')
+  b = b.split('')
+  while(a.length || b.length || loc){
+    //~~把字符串转换为数字，用~~而不用parseInt，是因为~~可以将undefined转换为0，当a或b数组超限，不用再判断undefined
+    //注意这里的+=，每次都加了loc本身，loc为true，相当于加1，loc为false，相当于加0
+    loc += ~~a.pop() + ~~b.pop()
+    //字符串连接，将个位加到res头部
+    res = (loc % 10) + res
+    //当个位数和大于9，产生进位，需要往res头部继续加1，此时loc变为true，true + 任何数字，true会被转换为1
+    loc = loc > 9
+  }
+  return res.replace(/^0+/,'')
+}
+
+```
+## 大数相乘
+
+时间复杂度O(n^2)
+
+```
+const multiply = (num1, num2) => {
+  const len1 = num1.length;
+  const len2 = num2.length;
+  const pos = new Array(len1 + len2).fill(0);
+
+  for (let i = len1 - 1; i >= 0; i--) {
+    const n1 = +num1[i];
+    for (let j = len2 - 1; j >= 0; j--) {
+      const n2 = +num2[j];
+      const multi = n1 * n2;             
+      const sum = pos[i + j + 1] + multi; 
+
+      pos[i + j + 1] = sum % 10;
+      pos[i + j] += sum / 10 | 0;
+    }
+  }
+  while (pos[0] == 0) {
+    pos.shift();
+  }
+  return pos.length ? pos.join('') : '0';
+};
+
+```
+
