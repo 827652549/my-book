@@ -2,19 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="28cce4ce-56cf-4258-97c7-becdf93a79a4" name="Default Changelist" comment="ge">
-      <change afterPath="$PROJECT_DIR$/docs/javascript/standard-build-in-objects.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/network/tcp_udp.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/_navbar.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_navbar.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/_sidebar.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_sidebar.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/browser/questions.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/browser/questions.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/coding-secret/javascript-api.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/coding-secret/javascript-api.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/css/css.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/css/css.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javascript/analysis-code.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javascript/analysis-code.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javascript/questions.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javascript/questions.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javascript/write-code.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javascript/write-code.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/network/http.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/network/http.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/vue/vue.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/vue/vue.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -133,7 +122,7 @@
       <workItem from="1597847712446" duration="2009000" />
       <workItem from="1597910017163" duration="7646000" />
       <workItem from="1598932783490" duration="3317000" />
-      <workItem from="1599049345541" duration="9450000" />
+      <workItem from="1599049345541" duration="10905000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1584811656527</created>

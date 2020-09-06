@@ -155,6 +155,65 @@ computed是计算属性，依赖其他的属性值，并且computed的属性值�
 #### watch:
 更多的是一种观察的作用，用于监听某些数据的回调。每当所监听的数据发生变化时才能执行回调处理后续操作。
 
+# 侦听属性watch如何监听一个对象内部的变化。
+
+- 如果只是监听obj内的某一个属性变化，可以直接obj.key进行监听。
+- 如果对整个obj深层监听，将deep设为true
+
+# 侦听属性watch的immediate的作用
+
+我们在watch中的默认写的方法就是handler方法。
+
+当值第一次进行绑定的时候并不会触发watch监听，使用immediate：true则可以在最初绑定的时候执行handler。
+# 计算属性computed以及里面的getter和setter
+
+computed是计算属性，依赖其他的属性值，并且计算属性是基于它们的响应式依赖进行缓存的。只在相关响应式依赖发生改变时它们才才会重新求值。
+
+getter作为默认值常常省略不写，所依赖的变量发生变化时相应地改变自身的值（这里依赖的变量一定要在模版中引用）
+
+当前变量直接被设置成其他值时会触发setter，新值会作为参数传到set中，然后再进行逻辑处理（`姓名`分为`姓`和`名`重新赋值到data中）。
+
+官方例子：
+```JSX
+<template>
+    <div id="demo">
+         <p> {{ fullName }} </p>
+         <input type="text" v-model="fullName">
+         <input type="text" v-model="firstName">
+         <input type="text" v-model="lastName">
+    </div>
+</template>
+
+var vm = new Vue({
+  el: '#demo',
+  data: {
+    firstName: 'zhang',
+    lastName: 'san'
+  },
+  computed: {
+    fullName: {
+      //getter 方法
+        get(){
+            console.log('computed getter...')
+            return this.firstName + ' ' + this.lastName
+        }，
+   //setter 方法
+        set(newValue){
+            console.log('computed setter...')
+            var names = newValue.split(' ')
+            this.firstName = names[0]
+            this.lastName = names[names.length - 1]
+            return this.firstName + ' ' + this.lastName
+        }
+      
+    }
+  },
+  updated () {
+     console.log('updated')
+  }
+})
+```
+
 
 1. 如果一个数据依赖于其他数据，那么把这个数据设计为computed的,因为可以利用 computed 的缓存特性，避免每次获取值时，都要重新计算；
 2. 当我们需要在数据变化时执行异步或开销较大的操作时，应该使用 watch，使用 watch 选项允许我们执行异步操作 (访问一个API)，限制我们执行该操作的频率，并在我们得到最终结果前，设置中间状态。这些都是计算属性无法做到的。
@@ -195,6 +254,25 @@ v-model本质就是一个语法糖，可以看成是value + input方法的语法
 Vue的数据是响应式的，但其实模板中并不是所有的数据都是响应式的。有一些数据首次渲染后就不会再变化，对应的DOM也不会变化。那么优化过程就是深度遍历AST树，按照相关条件对树节点进行标记。这些被标记的节点(静态节点)我们就可以跳过对它们的比对，对运行时的模板起到很大的优化作用。
 
 编译的最后一步是将优化后的AST树转换为可执行的代码。
+
+## 为什么v-for要加key
+
+最大化利用dom节点，提升性能。diff算法默认使用“就地复用”的策略，是一个首尾交叉对比的过程。
+
+在vue的源码中，有个sameVnode()函数，用于判断两个节点是否为同一节点（也就是是否可复用），他会先判断key和tag等是否相同，如果不加key，key都是undefined，默认相同，就会就地复用相同类型的元素，效率很低，并且有可能会因为数据和UI不一致带来一些问题。如果添加了key属性，它会基于key的变化重新排列元素顺序，并且会移除 key 不存在的元素。
+
+举个例子：
+
+有一个列表我们现在在中间插入了一个元素，diff算法会默认复用之前的列表并在最后追加一个，如果列表存在选中一类的状态则会随着复用出现绑定错误的情况而不是跟着原元素，key的作用就可以给他一个标识，让状态跟着数据渲染。
+
+要注意：有相同父元素的子元素必须有独特的 key。重复的 key 会造成渲染错误。
+
+## 为什么不建议用index作为key
+
+**index作为key，其实就等于不加key：**虽然加上了key，但key是就是当前的顺序索引值，此时sameNode(A,B)依然是为true，所以与不加key时一样。
+
+index作为key，只适用于不依赖子组件状态或临时 DOM 状态 的列表渲染输出。(比如表单输入值) 
+
 # Vue2.x和Vue3.x渲染器的diff算法分别说一下
 简单来说，diff算法有以下过程
 
