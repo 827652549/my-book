@@ -56,18 +56,25 @@ vw、vh、vmax、vmin都是基于视口，1vw是视口宽度的百分之一，1v
 
 图片vertical-align：middle
 
+## CSS垂直+居中的组合方案
+
+- **Flex布局**：对父容器使用flex布局，justify-content：center定义主轴上居中靠中心对齐，align-items定义交叉轴上居中对齐
+- **table-cell**：父容器设置display:teble-cell，然后垂直居中vertical-align，设置好宽高，然后子元素div设置宽高和margin：0 auto;
+- **绝对定位+transform反向偏移**：子元素绝对定位，top:50%，left:50%，利用translateY(-50%)和translateY(-50%)分别反向偏移一半的子元素尺寸
+
 ## 实现垂直居中的方式
 
 - 文字垂直居中，line-height等于容器height
 - 父容器设相等上下内边距，高度auto
 - 父容器display：table、子元素display：table-cell、vertical-align：middle
-- 子元素realtive相对定位，top:50%,再利用translateY(-50%)向上偏移50的子元素高度
+- 子元素绝对定位，top:50%,再利用translateY(-50%)向上偏移50的子元素高度
 - 利用flex布局，将align-items:center或主轴竖向并利用justify-content：center主轴方向居中
+
 ## 实现水平居中的方式
 
 - 通过子元素外边距margin：0 auto；
 - 父容器text-align：center，子元素设成行内块
-- 子元素相对定位，left：50%，反向偏移transform:translateX(-50%);
+- 子元素绝对定位，left：50%，反向偏移transform:translateX(-50%);
 - flex布局，justify-content: center
 
 <details>

@@ -128,7 +128,7 @@ console.log(a.x); // 为什么输出undefined？
 
 **‌尽量不要使用JS的连续赋值操作**
 
-## 浏览器事件循环event-loop
+## 代码实现浏览器事件循环event-loop
 
 思路：
 
