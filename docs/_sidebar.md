@@ -16,7 +16,8 @@
 * **网络篇 🕷️**
     * [HTTP](network/http.md)
     * [TCP/UDP](network/tcp_udp.md)
-    
+* **操作系统篇 🕷️**
+    * [操作系统](os/os.md)
 * **浏览器和新技术 ⚽️**
     * [浏览器和新技术](browser/questions.md)
 * **React篇 ⚛️**
@@ -27,8 +28,8 @@
     * [Node](node/node.md)
 * **Webpack篇 ♻️️**
     * [Webpack](webpack/webpack.md)
-* **项目篇 🏠**
-    * [项目篇](projects/project.md)
+* **情景发挥篇 🏠**
+    * [情景发挥篇](projects/project.md)
 * **性能优化篇 ⚡️‍**
     * [性能优化](speed/speed.md)
 * **数据结构与算法 📈️**

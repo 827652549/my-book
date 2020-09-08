@@ -837,3 +837,236 @@ const multiply = (num1, num2) => {
 
 ```
 
+## 函数链式调用/自调用
+
+实现:
+- add(1)(2)(3).print()//6
+- add(1)(2)(3)//6
+- add(1)(2)//3
+
+
+思路：
+
+创建闭包，将变量保存在内存中，如果直接输出，则重写toString()返回结果;如果通过print()则写成函数属性
+
+```javascript
+function add(num){
+  let total = num
+
+  function _add (n) {
+    total +=  n
+    return _add
+  }
+
+  // 直接返回最终结果
+  _add.toString=function () {
+    return total
+  }
+
+  // 通过print()返回最终结果
+  _add.print = function () {
+    return total
+  }
+
+  return _add
+}
+
+console.log(add(1)(2)(3).print())//6
+console.log(add(1)(2)(3))//6
+console.log(add(1)(2))//3
+```
+## 实现一个axios
+
+**思路：**
+axios还是属于 XMLHttpRequest， 因此需要实现一个ajax。或者基于http 。还需要一个promise对象来对结果进行处理。
+
+`myAxios.js`
+
+```javascript
+class Axios {
+    constructor() {
+
+    }
+
+    request(config) {
+        return new Promise(resolve => {
+            const {url = '', method = 'get', data = {}} = config;
+            // 发送ajax请求
+            const xhr = new XMLHttpRequest();
+            xhr.open(method, url, true);
+            xhr.onload = function() {
+                console.log(xhr.responseText)
+                resolve(xhr.responseText);
+            }
+            xhr.send(data);
+        })
+    }
+}
+
+// 最终导出axios的方法，即实例的request方法
+function CreateAxiosFn() {
+    let axios = new Axios();
+    let req = axios.request.bind(axios);
+    return req;
+}
+
+// 得到最后的全局变量axios
+let axios = CreateAxiosFn();
+
+```
+
+然后可以在html上进行测试
+
+```html
+//index.html
+<script type="text/javascript" src="./myAxios.js"></script>
+<body>
+<button class="btn">点我发送请求</button>
+<script>
+    document.querySelector('.btn').onclick = function() {
+        // 分别使用以下方法调用，查看myaxios的效果
+        axios({
+          method: 'get',
+          url: 'http://localhost:5000/getTest'
+        }).then(res => {
+          console.log('getAxios 成功响应', res);
+        })
+    }
+</script>
+</body>
+```
+
+## 手写发布者-订阅者模式
+
+```javascript
+// 事件对象
+let eventEmitter = {};
+
+// 缓存列表，存放 event 及 fn
+eventEmitter.list = {};
+
+// 订阅
+eventEmitter.on = function (event, fn) {
+  let _this = this;
+  // 如果对象中没有对应的 event 值，也就是说明没有订阅过，就给 event 创建个缓存列表
+  // 如有对象中有相应的 event 值，把 fn 添加到对应 event 的缓存列表里
+  (_this.list[event] || (_this.list[event] = [])).push(fn);
+  return _this;
+};
+
+// 发布
+eventEmitter.emit = function () {
+  let _this = this;
+  // 第一个参数是对应的 event 值，直接用数组的 shift 方法取出
+  let event = [].shift.call(arguments),
+    fns = [..._this.list[event]];
+  // 如果缓存列表里没有 fn 就返回 false
+  if (!fns || fns.length === 0) {
+    return false;
+  }
+  // 遍历 event 值对应的缓存列表，依次执行 fn
+  fns.forEach(fn => {
+    fn.apply(_this, arguments);
+  });
+  return _this;
+};
+
+function user1 (content) {
+  console.log('用户1订阅了:', content);
+};
+
+function user2 (content) {
+  console.log('用户2订阅了:', content);
+};
+
+// 订阅
+eventEmitter.on('article', user1);
+eventEmitter.on('article', user2);
+
+// 发布
+eventEmitter.emit('article', 'Javascript 发布-订阅模式');
+
+/*
+    用户1订阅了: Javascript 发布-订阅模式
+    用户2订阅了: Javascript 发布-订阅模式
+*/
+```
+## 控制最大(请求)并发数量
+
+假设最大并发数是n，那就通过`n--`发n个异步请求，同时将任务数组arr传进去，并通过shift()取arr首元素，虽然异步调用的顺序不同，但操作的是同一个数组，然后将元素进行处理之后，判断当前数组是否为空，否则按照上面的方法进行递归，知道数组为空为止。
+
+```javascript
+/**
+ * @params list {Array} - 要迭代的数组
+ * @params limit {Number} - 并发数量控制数
+ * @params asyncHandle {Function} - 对`list`的每一个项的处理函数，参数为当前处理项，必须 return 一个Promise来确定是否继续进行迭代
+ * @return {Promise} - 返回一个 Promise 值来确认所有数据是否迭代完成
+ */
+let mapLimit = (list, limit, asyncHandle) => {
+  let recursion = (arr) => {
+    return asyncHandle(arr.shift()).then(() => {
+      if (arr.length !== 0) return recursion(arr)   // 数组还未迭代完，递归继续进行迭代
+      else return 'finish'
+    })
+  }
+
+  let listCopy = [].concat(list)
+  let asyncList = [] // 正在进行的所有并发异步操作
+  while (limit--) {
+    asyncList.push(recursion(listCopy))
+  }
+  return Promise.all(asyncList)  // 所有并发异步操作都完成后，本次并发控制迭代完成
+}
+```
+
+以下是手动测试
+
+```
+let list = [1, 2, 3, 4, 5,4,333,222,122,23,54,64]
+let limit = 3//限制的并发数量
+let count = 0//记数当前并发量
+
+let callback = (curItem) => {
+  return new Promise(resolve => {
+    count++
+    setTimeout(() => {
+      console.log(curItem, '当前并发量:', count--)
+      resolve()
+    }, Math.random() * 5000)
+  })
+}
+
+mapLimit(list, limit, callback)
+//完成之后
+  .then(()=>{
+    console.log('所有并发执行完成')
+  })
+```
+
+## 实现instanceof
+
+instanceof 运算符用于检测构造函数的 prototype 属性是否出现在某个实例对象的原型链上。
+
+```javascript
+//instanceof的使用方法
+function Car() {}
+const benz = new Car();
+console.log(benz instanceof Car);//true
+console.log(auto instanceof Object);//true
+```
+
+实现instance_of(L,R)
+
+```javascript
+function instance_of(L, R) {//L 表示左表达式，R 表示右表达式 
+    var O = R.prototype;   // 取 R 的显示原型 
+    L = L.__proto__;  // 取 L 的隐式原型
+    while (true) {    
+        if (L === null)      
+             return false;   
+        if (O === L)  // 当 O 显式原型 严格等于 L隐式原型 时，返回true
+             return true;   
+        L = L.__proto__;  
+    }
+}
+```

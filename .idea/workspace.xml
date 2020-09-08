@@ -2,11 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="28cce4ce-56cf-4258-97c7-becdf93a79a4" name="Default Changelist" comment="ge">
+      <change afterPath="$PROJECT_DIR$/docs/os/os.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/coding-secret/javascript-api.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/coding-secret/javascript-api.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/javascript/analysis-code.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javascript/analysis-code.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/_coverpage.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_coverpage.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/_sidebar.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_sidebar.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/javascript/questions.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javascript/questions.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/javascript/write-code.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/javascript/write-code.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/node/node.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/node/node.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/projects/project.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/projects/project.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/vue/vue.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/vue/vue.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -126,7 +129,7 @@
       <workItem from="1597847712446" duration="2009000" />
       <workItem from="1597910017163" duration="7646000" />
       <workItem from="1598932783490" duration="3317000" />
-      <workItem from="1599049345541" duration="13363000" />
+      <workItem from="1599049345541" duration="25990000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1584811656527</created>

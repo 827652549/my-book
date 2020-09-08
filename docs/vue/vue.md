@@ -397,3 +397,22 @@ const Foo = () => import('./Foo.vue')
 # 组件懒加载/按需加载
  
  webpack 中提供了 require.ensure()来实现按需加载。
+
+# vue.use()做了什么
+官网给出的解释是:通过全局方法 Vue.use() 使用插件，
+
+- 如果插件是一个对象，必须提供 install 方法。如果插件是一个函数，它会被作为 install 方法。install 方法调用时，会将 Vue 作为参数传入。
+- 通过全局方法 Vue.use() 使用插件
+- 该方法需要在调用 new Vue() 之前被调用。
+- 当 install 方法被同一个插件多次调用，插件将只会被安装一次。
+
+**Vue.use()有什么用：**
+
+在 install 里我们可以拿到 Vue 那么和 Vue 相关的周边工作都可以考虑放在 Vue.use() 方法里，比如：
+
+- directive注册
+- mixin注册
+- filters注册
+- components注册
+- prototype挂载
+- ……

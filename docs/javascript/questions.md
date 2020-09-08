@@ -394,6 +394,8 @@ typeof Null === "object"
 
 **instanceof**
 
+检测构造函数的 prototype 属性是否出现在某个实例对象的原型链上。
+
 ```
 const a = [],b={};
 console.log(a instanceof Array);//true
@@ -444,3 +446,187 @@ Array.isArray(b);//false
 - 当有新DOM生成时，无需重复绑定事件，代码清晰简洁
 
 （联想到React的合成事件）
+
+## 前端发送请求的多种方法fetch/ajax/axios
+
+**‌Ajax**：
+
+异步网络请求。区别于传统web开发中采用的同步方式。
+
+Ajax带来的最大影响就是页面可以无刷新的请求数据。以往，页面表单提交数据，在用户点击完”submit“按钮后，页面会强制刷新一下，体验十分不友好。
+
+```javascript
+var request = new XMLHttpRequest(); // 创建XMLHttpRequest对象
+
+//ajax是异步的，设置回调函数
+request.onreadystatechange = function () { // 状态发生变化时，函数被回调
+    if (request.readyState === 4) { // 成功完成
+        // 判断响应状态码
+        if (request.status === 200) {
+            // 成功，通过responseText拿到响应的文本:
+            return success(request.responseText);
+        } else {
+            // 失败，根据响应码判断失败原因:
+            return fail(request.status);
+        }
+    } else {
+        // HTTP请求还在继续...
+    }
+}
+
+// 发送请求:
+request.open('GET', '/api/categories');
+request.setRequestHeader("Content-Type", "application/json") //设置请求头
+request.send();//到这一步，请求才正式发出
+```
+
+**axios**:
+
+axios不是一种新的技术,axios 是一个基于Promise 用于浏览器和 nodejs 的 HTTP 客户端，本质上也是对原生XHR的封装，只不过它是Promise的实现版本，符合最新的ES规范，
+
+> 实际上，axios可以用在浏览器和 node.js 中是因为，它会自动判断当前环境是什么，如果是浏览器，就会基于XMLHttpRequests实现axios。如果是node.js环境，就会基于node内置核心模块http实现axios
+>
+有以下特点：
+
+- 从浏览器中创建 XMLHttpRequests
+- 从 node.js 创建 http 请求
+- 支持 Promise API
+- 拦截请求和响应
+- 转换请求数据和响应数据
+- 取消请求
+- 自动转换 JSON 数据
+- 客户端支持防御 CSRF/XSRF
+
+**fetch**：
+
+fetch是前端发展的一种新技术产物。Fetch API提供了访问和操控HTTP流的js接口，例如请求和响应。它还提供了一个全局 fetch()方法，该方法提供了一种简单，合理的方式来跨网络异步获取资源。
+
+fetch() 会返回一个 promise。然后我们用then()方法编写处理函数来处理promise中异步返回的结果。处理函数会接收fetch promise的返回值，这是一个 Response 对象。
+
+在使用fetch的时候需要注意：
+
+- 接受到错误状态码时，Promise还是resolve（但是会将 resolve 的返回值的 ok 属性设置为 false ）仅当网络故障时或请求被阻止时，才会标记为 reject。
+- 默认情况下，fetch 不会从服务端发送或接收任何 cookies, 如果站点依赖于用户 session，则会导致未经认证的请求（要发送 cookies，必须设置 credentials 选项）。
+
+fetch代表着更先进的技术方向，但是目前兼容性不是很好，在项目中使用的时候得慎重。
+
+**缺点：** 
+
+虽然fetch比XHR有极大的提高，特别是它在Service Worker中的集成，但是 Fetch 现在还没有方法中止一个请求，除非使用实验性功能， AbortController 和 AbortSignal，这是个通用的API 来通知 中止 事件。另外用 Fetch 不能监测上传进度。如果需要的话，还是使用axios
+
+```javascript
+fetch('http://example.com/movies.json')
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(myJson) {
+    console.log(myJson);
+  });
+```
+
+**另外还有JQuery,request封装了网络请求**
+
+## 什么是同步和异步
+
+我们可以通俗理解为异步就是一个任务分成两段，先执行第一段，然后转而执行其他任务，等做好了准备，再回过头执行第二段。排在异步任务后面的代码，不用等待异步任务结束会马上运行，也就是说，异步任务不具有”堵塞“效应。不连续的执行，就叫做异步。相应地，连续的执行，就叫做同步
+
+"异步模式"非常重要。在浏览器端，耗时很长的操作都应该异步执行，避免浏览器失去响应，最好的例子就是Ajax操作。在服务器端，"异步模式"甚至是唯一的模式，因为执行环境是单线程的，如果允许同步执行所有http请求，服务器性能会急剧下降，很快就会失去响应。
+
+## js中实现异步编程的六种方案
+
+#### 回调函数
+
+回调是一个简单的函数，它作为参数传递给另一个函数，并且在事件发生的时候会执行。在 JavaScript中，函数可以赋值给一个变量，作为其他函数的参数。
+
+回调函数的优点是简单、容易理解和实现，缺点是不利于代码的阅读和维护，各个部分之间高度耦合，使得程序结构混乱、流程难以追踪（尤其是多个回调函数嵌套的情况），而且每个任务只能指定一个回调函数。此外它不能使用 try catch 捕获错误，不能直接 return。
+
+#### 事件监听
+
+这种方式下，异步任务的执行不取决于代码的顺序，而取决于某个事件是否发生。
+
+这种方法的优点是比较容易理解，可以绑定多个事件，每个事件可以指定多个回调函数，而且可以"去耦合"，有利于实现模块化。缺点是整个程序都要变成事件驱动型，运行流程会变得很不清晰。
+
+#### 发布订阅
+
+我们假定，存在一个"信号中心"，某个任务执行完成，就向信号中心"发布"（publish）一个信号，其他任务可以向信号中心"订阅"（subscribe）这个信号，从而知道什么时候自己可以开始执行。这就叫做"发布/订阅模式"（publish-subscribe pattern）
+
+#### Promise
+
+**Promise的三种状态:**
+
+- Pending----Promise对象实例创建时候的初始状态
+- Fulfilled----可以理解为成功的状态
+- Rejected----可以理解为失败的状态
+
+这个promise一旦从等待状态变成为其他状态就永远不能更改状态了
+
+promise的链式调用:
+
+- 每次调用返回的都是一个新的Promise实例(这就是then可用链式调用的原因)
+- 如果then中返回的是一个结果的话会把这个结果传递下一次then中的成功回调
+- 如果then中出现异常,会走下一个then的失败回调
+- 在then中使用了return，那么return的值会被Promise.resolve() 包装
+- then中可以不传递参数，如果不传递会透到下一个then中
+- catch 会捕获到没有捕获的异常
+
+#### 生成器Generators/ yield
+
+Generator 函数是 ES6 提供的一种异步编程解决方案，语法行为与传统函数完全不同，Generator 最大的特点就是可以控制函数的执行。
+
+- 语法上，首先可以把它理解成，Generator 函数是一个状态机，封装了多个内部状态。
+- Generator 函数除了状态机，还是一个遍历器对象生成函数。
+- 可暂停函数, yield可暂停，next方法可启动，每次返回的是yield后的表达式结果。
+- yield表达式本身没有返回值，或者说总是返回undefined。next方法可以带一个参数，该参数就会被当作上一个yield表达式的返回值。
+
+```javascript
+function *foo(x) {
+  let y = 2 * (yield (x + 1))
+  let z = yield (y / 3)
+  return (x + y + z)
+}
+let it = foo(5)
+console.log(it.next())   // => {value: 6, done: false}
+console.log(it.next(12)) // => {value: 8, done: false}
+console.log(it.next(13)) // => {value: 42, done: true}
+```
+
+手动迭代Generator 函数很麻烦，而实际开发一般会配合 co 库去使用。co是一个为Node.js和浏览器打造的基于生成器的流程控制工具，借助于Promise，你可以使用更加优雅的方式编写非阻塞代码。
+
+#### async/await
+
+- async/await是基于Promise实现的，它不能用于普通的回调函数。
+- async/await与Promise一样，是非阻塞的。
+- async/await使得异步代码看起来像同步代码，写法优雅，处理 then 的调用链，能够更清晰准确的写出代码
+
+## async/await比Generator好在哪
+
+- 内置执行器。Generator 函数的执行必须靠执行器，所以才有了 co 函数库，而 async 函数自带执行器。也就是说，async 函数的执行，与普通函数一模一样，只要一行。
+- 更广的适用性。 co 函数库约定，yield 命令后面只能是 Thunk 函数或 Promise 对象，而 async 函数的 await 命令后面，可以跟 Promise 对象和原始类型的值（数值、字符串和布尔值，但这时等同于同步操作）。
+- 更好的语义。 async 和 await，比起星号和 yield，语义更清楚了。async 表示函数里有异步操作，await 表示紧跟在后面的表达式需要等待结果。
+
+## localStorage和sessionStorage
+
+localStorage和sessionStorage一样都是用来存储客户端临时信息的对象。
+
+- localStorage生命周期是永久，这意味着除非用户主动在浏览器上清除localStorage信息，否则这些信息将永远存在。
+- sessionStorage生命周期为当前窗口或标签页，一旦窗口或标签页被永久关闭了，那么所有通过sessionStorage存储的数据也就被清空了。
+
+不同浏览器无法共享localStorage或sessionStorage中的信息。相同浏览器的不同页面间可以共享相同的 localStorage（页面属于相同域名和端口），但是不同页面或标签页间无法共享sessionStorage的信息。这里需要注意的是，页面及标签页仅指顶级窗口，如果一个标签页包含多个iframe标签且他们属于同源页面，那么他们之间是可以共享sessionStorage的。
+
+使用时使用相同的API：
+
+- localStorage.setItem('myCat', 'Tom');
+- let cat = localStorage.getItem('myCat');
+- localStorage.removeItem('myCat');
+- localStorage.clear();// 移除所有
+
+localStorage的除了get的API都会触发storage事件，可以利用这个来做不同标签页的通信，比如多个页面的购物车数据同步。
+
+## cookie和session的区别
+
+Cookie与Session都能够进行会话跟踪，普通状况下二者均能够满足需求
+
+- cookie数据存放在客户的浏览器（客户端）上，session数据放在服务器上，但是服务端的session的实现对客户端的cookie有依赖关系的；
+- cookie不是很安全，别人可以分析存放在本地的COOKIE并进行COOKIE欺骗，考虑到安全应当使用session；
+- session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能。考虑到减轻服务器性能方面，应当使用COOKIE；
+- 单个cookie在客户端的限制是3K，就是说一个站点在客户端存放的COOKIE不能超过3K；
