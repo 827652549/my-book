@@ -306,3 +306,12 @@ CDN内容分发网络，可以做到尽可能地缩短地域距离。CDN提供�
 - 存储大小不同，cookie为4kb左右；localStorage， sessionStorage可以达到5M
 - 数据有效期不同，sessionStorage仅在同源窗口中有效，关闭浏览器窗口就消失了，cookie在过期时间前一直有效，即使在关闭浏览器之后(如果没有设置过期时间，关闭浏览器就过期了)，localStorage长期有效，除非主动删除
 - localStorage， sessionStorage有现成的API， cookie需要程序员手动封装
+
+## Cookie和Session
+
+cookie和session都可以追踪会话状态，cookie也可以被用于保存用户的喜好等非敏感信息。
+
+- session 在服务器端，cookie 在客户端（浏览器）
+- session 默认被存在在服务器的一个文件里（不是内存）
+- session 的运行依赖 session id，而 session id 是存在 cookie 中的，也就是说，如果浏览器禁用了 cookie ，同时 session 也会失效（但是可以通过其它方式实现，比如在 url 中传递 session_id）
+- session 可以放在 文件、数据库、或内存中都可以。

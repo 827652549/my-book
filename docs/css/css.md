@@ -163,15 +163,43 @@ chrome最小值支持字体是12px，不论设多小都显示的是12px，如果
 
 另外也可以做到图片或canvas上，但是可维护性不是多好。
 
-## 动画（transition/animation）区别
+## css动画，transition和animation
 
-**区别：**
+CSS实现动画主要有两种方法：transition和animation属性。另外也可以用canvas实现动画，
+
+**transition：**
+
 transition强调过渡，需要触发一个事件，比如鼠标移入、点击等。
+
+```css
+transition-property: height; // 适用于哪个属性
+transition-duration: 1s;//动画总时长
+transition-delay: 1s;
+transition-timing-function: ease/linear/ease-in(加速)/ease-out/cubic-bezier(自定义)；
+````
+
+- 需要具体数值，不能用block,none等
+- transition需用事件触发，不能在网页加载时自动发生
+- 一次性，不能重复发生，除非一再触发
+- 只有两个状态：开始和结束状态
+- 一条transition规则只能定义一个属性，但可以将transition-property设置成all应用所有属性的变化
+
+**animation：**
 
 animation设置多个关键帧，实现自由动画，不需要触发任何事件也可实现动画效果；而且@keyframe控制当前帧属性的样式，创建由当前样式逐渐改为新样式的动画，更灵活。
 
-Canvas实现动画，性能更高。
+```css
+- animation-name: rainbow;//对应的关键帧@keyframes
+- animation-duration: 1s;
+- animation-timing-function: ease-in-out;
+- animation-delay: 1s;
+- animation-fill-mode(动画停留在): none(动画没开始时)/forwards(结束)/backwards(第一帧)/both;
+- animation-direction(动画播放方向): normal(正向)/alternate(交替慎用)/reverse(反向)/alternate-reverse(反向交替慎用);
+- animation-iteration-count(播放次数): 3/infinite(无限);
+- animation-play-state(用于让动画保持突然终止时的状态):running(例如悬停时播放)/paused(非悬停时暂停)； 注意这个属性不能简写
+```
 
+Canvas实现动画，性能更高。
 ## 非行内style中dom.style.top获取为空
 
 使用`offsetLeft`、`offsetTop`来替代style.x,style.y
