@@ -137,8 +137,8 @@ vw、vh、vmax、vmin都是基于视口，1vw是视口宽度的百分之一，1v
 
 - static：默认值。正常流
 - realtive：相对定位，相对于正常位置
-- absolute：基于最近的非static进行偏移
-- fixed：基于视口位置
+- absolute：基于最近的非static进行定位。
+- fixed：基于视口位置，相对于浏览器窗口进行绝对定位。
 - sticky：粘性定位
 
 ## 怎么理解z-index

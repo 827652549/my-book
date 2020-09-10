@@ -118,7 +118,69 @@ function comconent是一种无状态组件，更好体验容器和表现分离�
 
 class component有生命周期，用state改变内部状态，可以利用shouldComponentUpdate优化性能
 
+## 高阶组件HOC和render props是什么？带来了什么问题
+
+#### 高阶组件
+
+高阶组件可以看作 React对装饰模式的一种实现，高阶组件是一个函数，接收一个组件，然后返回一个新的组件。
+
+> 高阶组件（ HOC）是 React中的高级技术，用来重用组件逻辑。但高阶组件本身并不是 ReactAPI。它只是一种模式，这种模式是由 React自身的组合性质必然产生的。
+
+**手写一个高阶组件：** HOC的简单应用，函数接收一个组件作为参数，并返回一个新组件，新组建可以接收一个 visible props，根据 visible的值来判断是否渲染Visible。
+
+ ```javascript
+// 手写一个高阶组件
+ function visible(WrappedComponent) { 
+	return class extends Component {
+		render() {
+			const { visible, ...props } = this.props; 
+			if (visible === false) return null;
+			return <WrappedComponent {...props} />;
+		}
+	}
+}
+ ```
+ 
+ **高阶组件的优点：**
+ 
+ - 不会影响内层组件的状态, 降低了耦合度
+ 
+ **高阶组件的缺点：**
+ 
+ - 相同的props会发生覆盖：如果一个已经封装好的高阶组件，在外用了name属性，如果被包裹组件也用了name属性，则会造成覆盖，增加了调试和代码修复的时间。
+ - 被包裹组件的静态方法会消失：静态方法本来在组件的statics对象内，由于组件被包裹，返回的组件已经是新组件。如果需要保留，可以手动将原组件方法拷贝给新组件。
+ - 高阶组件和 Render Props 一样，本质上都是将复用逻辑提升到父组件中，很容易产生很多包装组件，带来的「嵌套地域」。
+
+#### render props
+
+将一个组件内的 state 作为 props 传递给调用者, 调用者可以动态的决定如何渲染.
+
+**缺点：**
+- 无法在 return 语句外访问数据
+- 导致嵌套地狱
+
+## React hooks解决了什么问题
+
+**发展由来，为什么要有React Hooks：**
+
+React的核心是组件，在V16.8之前，组件的标准写法是类（class），而由类写成的组件，其实是相对较“重”的，随着React应用的负复杂层级不断叠加，就会更复杂。
+
+缺点：
+
+- 组件类引入了复杂的编程模式，比如 render props 和高阶组件。
+- 大型组件难以拆分和重构，和难以测试
+- 业务逻辑分散在各个方法中，导致重复逻辑或关联逻辑
+
+React团队希望：**组件的最佳写法应该是函数，而不是类。**
+
+虽然React早期就支持函数组件，但是必须是纯函数，不能包含状态，也不支持生命周期方法，所以不能取代类。
+
+所以**React Hooks 的设计目的，就是加强版函数组件，完全不使用"类"，就能写出一个全功能的组件。**
+
+
 ## react hooks
+
+React Hooks 的意思是，组件尽量写成纯函数，如果需要外部功能和副作用，就用钩子把外部代码"钩"进来。
 
 |hook|说明|
 |-|-|
@@ -126,7 +188,36 @@ class component有生命周期，用state改变内部状态，可以利用should
 |useEffect🏁|相当于合并了componentDidMount、componentDidUpdate、componentWillUnmount，用于添加“副作用”；React 将按照 effect 声明的顺序依次调用组件中的每一个 effect；可根据第二个数组参数有选择调用，传入[]意味着只执行一次
 |useContext🏁|不用组件嵌套就可以订阅React的Context|
 |useReducer|通过reducer来管理本地复杂的state|
+|useCallback|缓存函数的引用，把内联回调函数及依赖项数组作为参数传入 useCallback，它将返回该回调函数的 memoized 版本，该回调函数仅在某个依赖项改变时才会更新。第二个参数依赖项(deps)是一个空数组它代表这个函数在组件的生成周期内会永久缓存。|
+|useMemo|缓存计算数据的值|
+|useLayoutEffect|和useEffect类似|
 
 hook的规则：
 - 只能在**函数最外层**调用hook，不要在循环、条件判断、子函数中调用
 - 只能在**React函数组件**和**自定义hook**中调用hook
+
+## useCallback和useMemo的区别
+
+先说结论：useCallback和useMemo都可缓存函数的引用或值，但是从更细的使用角度来说useCallback缓存函数的引用，useMemo缓存计算数据的值。
+
+**useCallback：**
+
+假设一个累加器，我们对count使用useState，那么我们或许定一个handleCount来执行setCount(count+1)。实际上，每一次重新渲染组件时，handleCount都是新创建的函数，那么将handleCount作为props传递给子组件时，shouldComponentUpdate相关优化就会失效，因为每次都是不同的函数。而如果使用了useCallback，那么则得到的是一个缓存函数，只有依赖项发生改变时才会更新。
+
+**useMemo：**
+
+useMemo和useCallback很像,区别是
+
+- useCallback是根据第二个参数依赖(deps)缓存第一个入参的(callback)，是回调函数的缓存版本。
+- useMemo是根据依赖(deps)缓存第一个入参(callback)执行后的值，可用于密集型计算大的一些缓存。
+
+**useCallback(fn, deps) 相当于 useMemo(() => fn, deps)。**
+
+## useEffect和useLayoutEffect
+
+useEffect 用来取代 componentDidMount 和 componentDidUpdate。主要作用是当页面渲染后，进行一些副作用操作（比如访问 DOM，请求数据）。
+
+**区别：**
+
+useLayoutEffect 的作用和 useEffect 几乎差不多，不过useLayoutEffect 可以使用它来读取 DOM 布局并同步触发重渲染。因为useLayoutEffect会在组件树构建完毕后同步立刻执行，而useEffect会等其他js代码执行完毕后执行（或者遇到下一次刷新任务前），也就是说等待 useLayoutEffect 内部状态修改后，才会去更新页面，因此可以通过这个机制，来解决一些特性场景下的页面闪烁问题，
+

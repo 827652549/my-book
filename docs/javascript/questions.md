@@ -3,7 +3,7 @@
 
 ## ES6新语法，包含es7、es8、es9更新的语法
 
-- `let`声明变量，`const`声明常量
+- `let`声明变量，`const`声明常量，let声明的变量在未声明前不允许使用，即“暂时性死区”。
 - 解构赋值
 - 模版字符串、字符串被for…of遍历
 - 字符串的正则
@@ -95,6 +95,8 @@ origin： 协议+主机+端口号，也可以设置为"*"，表示可以传递�
 - （可选）Access-Control-Allow-Credentials: true//表示允许是否发送cookie，默认情况下cookie不包含cros请求中
 - （可选）Access-Control-Expose-Headers: name//携带上制定响应头的字段
 
+如果CORS请求了非简单请求，还会带来进行option的问题
+
 7. **nginx代理跨域**
 
 ##### nginx反向代理接口跨域
@@ -122,7 +124,30 @@ WebSocket protocol是HTML5一种新的协议。它实现了浏览器与服务器
 
 原生WebSocket API使用起来不太方便，我们使用Socket.io，它很好地封装了webSocket接口，提供了更简单、灵活的接口，也对不支持webSocket的浏览器提供了向下兼容。
 
+## 简单请求和非简单请求，Option请求
 
+浏览器将CORS请求分成两类：简单请求（simple request）和非简单请求（not-so-simple request）。
+
+- 请求方法是以下三种方法之一：
+	- HEAD
+	- GET
+	- POST
+- HTTP的头信息不超出以下几种字段：
+	- Accept//客户端或代理能够处理的媒体类型
+	- Accept-Language//优先的语言（中文、英文……）
+	- Content-Language//	实体主体的自然语言
+	- Content-Type：只限于三个值application/x-www-form-urlencoded、multipart/form-data、text/plain
+
+凡是不同时满足上面两个条件，就属于非简单请求。
+
+- 对于简单请求，在头信息里加一个Origin字段（协议 + 域名 + 端口），直接请求，
+- 对于非简单请求，需要先用options请求“预检”，
+
+预检的请求头里有两个字段：
+- Access-Control-Request-Method//列出浏览器的CORS请求会用到哪些HTTP方法
+- Access-Control-Request-Headers//浏览器CORS请求会额外发送的头信息字段
+
+服务器收到"预检"请求以后，检查了Origin、Access-Control-Request-Method和Access-Control-Request-Headers字段以后，确认允许跨源请求，就可以做出回应。如果服务器否定了"预检"请求，会返回一个正常的HTTP回应，但是没有任何CORS相关的头信息字段。这时，浏览器就会认定，服务器不同意预检请求，因此触发一个错误，被XMLHttpRequest对象的onerror回调函数捕获。
 
 
 ## 原型链✨
@@ -373,6 +398,11 @@ BigInt是没有正式发布(截止到2020年3月26日)的，但即将加入标�
 - map按顺序传入每个值，return的值改变当前值
 
 filter和map是返回新数组，reduce返回结果值，foreach不返回
+
+## 深拷贝和浅拷贝
+
+- 浅拷贝（shallow copy）：只复制指向某个对象的指针，而不复制对象本身，新旧对象共享一块内存；
+- 深拷贝（deep copy）：复制并创建一个一摸一样的对象，不共享内存，修改新对象，旧对象保持不变。
 
 ## Object.assign()是深拷贝还是浅拷贝
 
