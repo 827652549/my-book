@@ -177,7 +177,6 @@ React团队希望：**组件的最佳写法应该是函数，而不是类。**
 
 所以**React Hooks 的设计目的，就是加强版函数组件，完全不使用"类"，就能写出一个全功能的组件。**
 
-
 ## react hooks
 
 React Hooks 的意思是，组件尽量写成纯函数，如果需要外部功能和副作用，就用钩子把外部代码"钩"进来。
@@ -195,6 +194,35 @@ React Hooks 的意思是，组件尽量写成纯函数，如果需要外部功�
 hook的规则：
 - 只能在**函数最外层**调用hook，不要在循环、条件判断、子函数中调用
 - 只能在**React函数组件**和**自定义hook**中调用hook
+
+## Hooks写输入组件,实现change进行请求接口
+
+```javascript
+import React, { useEffect, useState } from 'react'
+
+//url从外部传入
+export default function Search(props) {
+  //设置初始值
+  const [value,setValue] = useState('')
+  //value设置成当前改变后的值
+  const setSearchText = e=>{
+    setValue(e.target.value)
+  }
+  useEffect(()=>{
+    //请求搜索接口
+    axios.post(props.url,{value},{headers:{
+        'content-type':'application/json'
+      }}).
+    then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  })
+  return <input value={value} onChange={setSearchText}/>
+}
+```
 
 ## useCallback和useMemo的区别
 
