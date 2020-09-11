@@ -133,7 +133,7 @@ vw、vh、vmax、vmin都是基于视口，1vw是视口宽度的百分之一，1v
 `flex`:\<flex-grow\> | \<flex-shrink\> | \<flex-basis\>
 >复合属性，默认为“0 1 auto”
 
-## CSS定位方式
+## CSS定位方式position
 
 - static：默认值。正常流
 - realtive：相对定位，相对于正常位置
@@ -200,6 +200,7 @@ animation设置多个关键帧，实现自由动画，不需要触发任何事�
 ```
 
 Canvas实现动画，性能更高。
+
 ## 非行内style中dom.style.top获取为空
 
 使用`offsetLeft`、`offsetTop`来替代style.x,style.y
