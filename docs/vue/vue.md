@@ -294,7 +294,7 @@ ivi算法和 inferno算法
 
 # hash路由和history路由实现原理说一下
 
-hash模式：在浏览器中符号“#”，#以及#后面的字符称之为hash，用window.location.hash读取；hash虽然在URL中，但不被包括在HTTP请求中；用来指导浏览器动作，对服务端安全，hash不会重新加载页面。
+hash模式：在浏览器中符号“#”，#以及#后面的字符称之为hash，用window.location.hash读取，可以使用`hashchange`监听hash事件变更；hash虽然在URL中，但不被包括在HTTP请求中；用来指导浏览器动作，对服务端安全，hash不会重新加载页面。
 
 history模式：history采用HTML5的新特性；且提供了两个新方法：pushState（），replaceState（）可以对浏览器历史记录栈进行修改，以及popState事件的监听到状态变更。
 
