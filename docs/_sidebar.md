@@ -22,13 +22,13 @@
     * [浏览器和新技术](browser/questions.md)
 * **React篇 ⚛️**
     * [React](react/react.md)
-* **Vue篇 ⚛️**
+* **Vue篇 🗼**
     * [Vue](vue/vue.md)
 * **Node篇 ♻️️**
     * [Node](node/node.md)
-* **数据库篇 ♻️️**
+* **数据库篇 🗂️**
     * [数据库](db/db.md)
-* **Webpack篇 ♻️️**
+* **Webpack篇 🧳**
     * [Webpack](webpack/webpack.md)
 * **情景发挥篇 🏠**
     * [情景发挥篇](projects/project.md)

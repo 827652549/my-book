@@ -936,7 +936,89 @@ let axios = CreateAxiosFn();
 </body>
 ```
 
+
+## 观察者模式
+
+观察者直接订阅目标，当目标触发事件时，通知观察者进行更新
+
+简单实现
+
+```javascript
+class Observer {
+  constructor(name) {
+    this.name = name;
+  }
+
+  update() {
+    console.log(`${this.name} update`)
+  }
+}
+
+class subject {
+  constructor() {
+    this.subs = [];
+  }
+
+  add(observer) {
+    this.subs.push(observer);
+  }
+
+  notify() {
+    this.subs.forEach(item => {
+      item.update();
+    });
+  }
+}
+
+const sub = new subject();
+const ob1 = new Observer('ob1');
+const ob2 = new Observer('ob2');
+
+// 观察者订阅目标
+sub.add(ob1);
+sub.add(ob2);
+
+// 目标触发事件
+sub.notify();
+```
 ## 手写发布者-订阅者模式
+
+发布订阅模式通过一个调度中心进行处理，使得订阅者和发布者分离开来，互不干扰。
+
+简单实现：
+
+```javascript
+class Event {
+  constructor() {
+    this.lists = new Map();
+  }
+
+  on(type, fn) {
+    if (!this.lists.get(type)) {
+      this.lists.set(type, []);
+    }
+
+    this.lists.get(type).push(fn);
+  }
+
+  emit(type, ...args) {
+    const arr = this.lists.get(type);
+    arr && arr.forEach(fn => {
+      fn.apply(null, args);
+    });
+  }
+}
+
+const ev = new Event();
+
+// 订阅
+ev.on('msg', (msg) => console.log(msg));
+
+// 发布
+ev.emit('msg', '发布');
+```
+
+另一种实现：
 
 ```javascript
 // 事件对象
@@ -991,6 +1073,149 @@ eventEmitter.emit('article', 'Javascript 发布-订阅模式');
     用户2订阅了: Javascript 发布-订阅模式
 */
 ```
+
+## 手撸一个事件机制
+
+**关键词：发布-订阅模式**
+
+其实核心就是维护一个对象，对象的 key 存的是事件 type，对应的 value 为触发相应 type 的回调函数，即 listeners，然后 trigger 时遍历通知，即 forEach 进行回调执行。
+
+```javascript
+class EventTarget {
+  constructor() {
+    this.listeners = {}; // 储存事件的对象
+  }
+
+// 注册事件的回调函数
+  on(type, callback) {
+    if (!this.listeners[type]) this.listeners[type] = []; // 如果是第一次监听该事件，则初始化数组
+      this.listeners[type].push(callback);
+  }
+ // 注册事件的回调函数，只执行一次
+  once(type, callback) {
+   if (!this.listeners[type]) this.listeners[type] = [];
+      callback._once = true; // once 只触发一次，触发后 off 即可
+      this.listeners[type].push(callback);
+  }
+// 删除一个回调函数
+  off(type, callback) {
+    const listeners = this.listeners[type];
+    if (Array.isArray(listeners)) {
+      // filter 返回新的数组，会每次对 this.listeners[type] 分配新的空间
+      // this.listeners[type] = listeners.filter(l => l !== callback);
+      const index = listeners.indexOf(callback); // 根据 type 取消对应的回调
+      this.listeners[type].splice(index, 1); // 用 splice 要好些，直接操作原数组
+
+      if (this.listeners[type].length === 0) delete this.listeners[type]; // 如果回调为空，删除对该事件的监听
+    }
+  }
+ // 触发注册的事件回调函数执行
+  trigger(event) {
+    const { type } = event; // type 为必传属性
+    if (!type) throw new Error('没有要触发的事件！');
+
+    const listeners = this.listeners[type]; // 判断是否之前对该事件进行监听了
+    if (!listeners) throw new Error(`没有对象监听 ${type} 事件！`);
+
+    if (!event.target) event.target = this;
+
+    listeners.forEach(l => {
+      l(event);
+      if (l._once) this.off(type, l); // 如果通过 once 监听，执行一次后取消
+    });
+  }
+}
+
+// 测试
+function handleMessage(event) { 
+console.log(`message received: ${ event.message }`); 
+}
+
+function handleMessage2(event) {
+console.log(`message2 received: ${ event.message }`); 
+ }
+
+const target = new EventTarget();
+
+target.on('message', handleMessage);
+target.on('message', handleMessage2);
+target.trigger({ type: 'message', message: 'hello custom event' }); // 打印 message，message2
+
+target.off('message', handleMessage);
+target.trigger({ type: 'message', message: 'off the event' }); // 只打印 message2
+
+target.once('words', handleMessage);
+target.trigger({ type: 'words', message: 'hello2 once event' }); // 打印 words
+target.trigger({ type: 'words', message: 'hello2 once event' }); // 报错：没有对象监听 words 事件！
+```
+
+## 实现一个sleep函数
+
+```javascript
+//Promise
+const sleep = time => {
+  return new Promise(resolve => setTimeout(resolve,time))
+}
+sleep(1000).then(()=>{
+  console.log(1)
+})
+
+//Generator
+function* sleepGenerator(time) {
+  yield new Promise(function(resolve,reject){
+    setTimeout(resolve,time);
+  })
+}
+sleepGenerator(1000).next().value.then(()=>{console.log(1)})
+
+//async
+function sleep(time) {
+  return new Promise(resolve => setTimeout(resolve,time))
+}
+async function output() {
+  let out = await sleep(1000);
+  console.log(1);
+  return out;
+}
+output();
+
+//ES5
+function sleep(callback,time) {
+  if(typeof callback === 'function')
+    setTimeout(callback,time)
+}
+
+function output(){
+  console.log(1);
+}
+sleep(output,1000);
+```
+
+## 实现add(1)(2,3)(1)//6函数
+
+```javascript
+function add(){
+	let args = [...arguments];
+	let addfun = function(){
+		args.push(...arguments);
+		return addfun;
+	}
+	addfun.toString = function(){
+		return args.reduce((a,b)=>{
+			return a + b;
+		});
+	}
+	return addfun;
+}
+
+add(1); 	// 1
+add(1)(2);  	// 3
+add(1)(2)(3)；  // 6
+add(1)(2, 3);   // 6
+add(1, 2)(3);   // 6
+add(1, 2, 3);   // 6
+```
+
 ## 控制最大(请求)并发数量
 
 假设最大并发数是n，那就通过`n--`发n个异步请求，同时将任务数组arr传进去，并通过shift()取arr首元素，虽然异步调用的顺序不同，但操作的是同一个数组，然后将元素进行处理之后，判断当前数组是否为空，否则按照上面的方法进行递归，知道数组为空为止。
