@@ -115,61 +115,40 @@ son.work();//刷碗
 
 &emsp;&emsp;组合继承避免了原型链和借用构造函数的缺陷，融合了它们的优点，成为`JavaScript`中最常用的继承模式。但是我个人觉得，即使这样，对于代码来说仍然显得松散，不能像Java继承一样让人直观理解。
 ### 原型式继承
-&emsp;&emsp;利用一个空对象作为中介，将某个对象直接赋值给空对象构造函数的原型。
-
+&emsp;&emsp;Object.create(proto)目的就是以proto 为原型对象，创建一个新的实例a。a的改变不会影响 proto，proto 的改变会影响 a
 ```javascript
-function Object(obj) {
-    function Son() {}
-    Son.prototype = obj;
-    return new Son();
+function Father(){
+    this.name= 'Default'
+    this.sayName = function() {
+        console.log(this.name);
+    }
 }
-
-function Father() {
-    this.hobby = ['吃饭','睡觉'];
-}
-
-let father = new Father();
-let son = Object(new Father());
-
-console.log(father.hobby);
-console.log(son.hobby);
+const son = Object.create(new Father())
+son.name = 'tom'
+son.sayName()
 ```
-
-&emsp;&emsp;`object()`对传入其中的对象执行了一次`浅复制`，将构造函数Son的原型直接指向传入的对象。另外，ES5中存在`Object.create()`的方法，能够代替上面的`object`方法。
 
 &emsp;&emsp;和其他的继承方式相比，代码明显简洁了很多，但从理解上仍然不是那么直观，所以我们接着往下看。
 
 ### 寄生式继承
 &emsp;&emsp;核心：在原型式继承的基础上，增强对象，返回构造函数。主要作用就是为构造函数新增属性和方法，以**增强函数**。
 ```javascript
-function createAnother(original){
-    var clone = Object(original); // 通过调用 object() 函数创建一个新对象
-    clone.sayHi = function(){  // 以某种方式来增强对象
-        console.log("hi");
-    };
-    return clone; // 返回这个对象
+// 寄生继承：
+// 在原型继承的基础上，增强函数
+function Father(){
+    this.name = 'tom'
 }
-
-
-function Object(obj) {
-    function Son() {}
-    Son.prototype = obj;
-    return new Son();
+function createAnother(obj){
+    const newObj = Object.create(obj)
+    newObj.sayName = ()=>{
+        console.log(newObj.name);
+    }
+    return newObj
 }
-
-function Father() {
-    this.hobby = ['吃饭','睡觉'];
-}
-
-let father = new Father();
-let son = createAnother(new Father());
-
-console.log(father.hobby);
-console.log(son.hobby);
-son.sayHi();
+const son = createAnother(new Father())
+son.sayName()
 ```
 
-&emsp;&emsp;说白了，就是原型式继承的升级版，的确达到了增强函数的目的，但是代码显得仍然有点复杂，不够直观，并且无法传递参数。
 ### 寄生组合式继承
 &emsp;&emsp;这是才是大哥。寄生组合式继承是借用构造函数传递参数和寄生模式实现继承。几乎是融合了以上所有的JS继承的优点。
 

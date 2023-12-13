@@ -40,22 +40,37 @@ function l(x) {
 
 ```javascript
 
-//使用递归的方式实现数组、对象的深拷贝
-function deepClone1(obj) {
-  //判断拷贝的要进行深拷贝的是数组还是对象，是数组的话进行数组拷贝，对象的话进行对象拷贝
-  var objClone = Array.isArray(obj) ? [] : {};
-  //进行深拷贝的不能为空，并且是对象或者是
-  if (obj && typeof obj === "object") {
-    for (key in obj) {
-        if (obj[key] && typeof obj[key] === "object") {
-          objClone[key] = deepClone1(obj[key]);
+// 深拷贝
+// 局限性：循环引用，不能处理无原型链的对象
+let deepCopy = (obj: any): any => {
+    if (obj === null) return null
+    let clone = Object.assign({}, obj)
+    // 拷贝属性
+    Object.keys(obj).forEach(k => {
+        // 特殊对象还是需要特殊处理，需要拷贝更多，需要添加更多
+        if (typeof obj[k] === 'function') {
+            clone[k] = obj[k].bind(clone)
+        } else if (obj[k] instanceof RegExp) {
+            clone[k] = new RegExp(obj[k])
+        } else if (obj[k] instanceof Date) {
+            clone[k] = new Date(obj[k])
+        } else if (obj[k] instanceof Set) {
+            clone[k] = new Set(deepCopy(Array.from(obj[k])))
+        } else if (obj[k] instanceof Map) {
+            clone[k] = new Map(deepCopy(Array.from(obj[k])))
+        } else if (typeof obj[k] === 'object') {
+            clone[k] = deepCopy(obj[k])
         } else {
-          objClone[key] = obj[key];
+            clone[k] = obj[k]
         }
+    })
+
+    if (Array.isArray(obj)) {
+        clone.length = obj.length
+        return Array.from(clone)
     }
-  }
-  return objClone;
 }
+
 
 ```
 
