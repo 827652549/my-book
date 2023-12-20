@@ -228,7 +228,14 @@ export default function Search(props) {
 
 先说结论：useCallback和useMemo都可缓存函数的引用或值，但是从更细的使用角度来说useCallback缓存函数的引用，useMemo缓存计算数据的值。
 
+useCallback:
+父组件重新渲染，本来子组件也要全部重新渲染，可以通过 useCallback 保护一些函数不必重新渲染，以此优化性能。
+
+useMemo:
+缓存值的计算结果
+
 **useCallback：**
+
 
 假设一个累加器，我们对count使用useState，那么我们或许定一个handleCount来执行setCount(count+1)。实际上，每一次重新渲染组件时，handleCount都是新创建的函数，那么将handleCount作为props传递给子组件时，shouldComponentUpdate相关优化就会失效，因为每次都是不同的函数。而如果使用了useCallback，那么则得到的是一个缓存函数，只有依赖项发生改变时才会更新。
 
