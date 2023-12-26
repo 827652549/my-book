@@ -310,6 +310,8 @@ let fun = new Function('arg1','arg2','alert(arg1+","+arg2)')
 
 ?> 这个问题是在问：闭包是什么？闭包有什么作用？
 
+闭包的关键是函数有自己的作用域，这个作用域的寿命可可以存活的比函数本身还要长。
+
 闭包："有权访问另一个函数作用域中变量的函数"（来自红宝书）
 
 闭包的最大作用是“隐藏变量”，一大特性是**内部函数总是可以访问外部函数中声明的参数和变量，甚至在其外部函数被返回（寿终正寝）之后**，比如可以利用闭包访问私有变量。
@@ -698,7 +700,29 @@ console.log(it.next(13)) // => {value: 42, done: true}
 - 更广的适用性。 co 函数库约定，yield 命令后面只能是 Thunk 函数或 Promise 对象，而 async 函数的 await 命令后面，可以跟 Promise 对象和原始类型的值（数值、字符串和布尔值，但这时等同于同步操作）。
 - 更好的语义。 async 和 await，比起星号和 yield，语义更清楚了。async 表示函数里有异步操作，await 表示紧跟在后面的表达式需要等待结果。
 
+## 浏览器实现提供的通信手段
+
+[各种浏览器通信测试网站](https://alienzhou.github.io/cross-tab-communication)
+
+|通信手段|常用场景|同源同 Tab|同源跨 Tab|跨域|
+|-|-|-|-|-|
+|`SessionStorage`|单页面临时状态|✔️|||
+|`Web Workers`|独立线程，复杂计算|✔️|||
+|`ServiceWorker`|独立线程，离线/弱网|✔️|||
+|`Shared Workers`|多标签页共享的线程|✔️|✔️||
+|`BroadcastChannel API`|多标签页广播通信|✔️|✔️||
+|`localStorage`|长期本地存储|✔️|✔️||
+|`IndexedDB`|大量结构化数据存储|✔️|✔️||
+|`cookies`|用户身份认证、会话持久化|✔️|✔️||
+|`postMessage`|不同窗口间安全通信|✔️|✔️|✔️|
+|`WebSocket`|C/S双向通信|✔️|✔️|✔️|
+|`CORS+Fetch/XMLHttpRequest`|跨域常用解决方案|✔️|✔️|✔️|
+|`JSONP`|get 跨域|✔️|✔️|✔️|
+|`WebRTC`|C/C的P2P通信|✔️|✔️|✔️|
+
+
 ## localStorage和sessionStorage
+
 
 localStorage和sessionStorage一样都是用来存储客户端临时信息的对象。
 
